@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Don\'t Be Alone</string>
+    <string name="facebook_app_id" translatable="false">2055385528103407</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb2055385528103407</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY" translatable="false">vXjxQqF7MIU9JAoiEYEaT7B5f</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET" translatable="false">jMNMdFPZSNeCFbPF3oe0YC7jOVX71YlmK9NQi5FqFIpTVbQ2zv</string>
 </resources>

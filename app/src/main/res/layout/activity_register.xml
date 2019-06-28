@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ebf5ff"
-    tools:context=".RegisterActivity">
+    tools:context=".view.RegisterActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -55,72 +55,114 @@
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:layout_height="wrap_content">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/nunito_regular"
-                android:text="Sign Up"
-                android:textColor="#000"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:padding="24dp"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/nunito_regular"
-                android:text="Already have an account? Login here!"
-                android:textSize="12sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/nunito_regular"
+                    android:text="Sign Up"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_user"
-                android:drawableTint="@color/colorPrimary"
-                android:fontFamily="@font/nunito_regular"
-                android:hint="Username"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/nunito_regular"
+                    android:text="Already have an account? Login here!"
+                    android:textSize="12sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_email"
-                android:drawableTint="@color/colorPrimary"
-                android:fontFamily="@font/nunito_regular"
-                android:hint="Email"
-                android:textSize="14sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_user"
+                    android:drawableTint="@color/colorPrimary"
+                    android:fontFamily="@font/nunito_regular"
+                    android:hint="Username"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="14sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:drawableRight="@drawable/ic_password"
-                android:drawableTint="@color/colorPrimary"
-                android:fontFamily="@font/nunito_regular"
-                android:hint="Password"
-                android:textSize="14sp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_email"
+                    android:drawableTint="@color/colorPrimary"
+                    android:fontFamily="@font/nunito_regular"
+                    android:hint="Email"
+                    android:inputType="textWebEmailAddress"
+                    android:maxLines="1"
+                    android:textSize="14sp" />
 
-            <Button
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="48dp"
-                android:layout_marginRight="48dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_bg_button"
-                android:fontFamily="@font/nunito_regular"
-                android:text="Sign Up"
-                android:textColor="#fff" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_password"
+                    android:drawableTint="@color/colorPrimary"
+                    android:fontFamily="@font/nunito_regular"
+                    android:hint="Password"
+                    android:inputType="textWebPassword"
+                    android:maxLines="1"
+                    android:textSize="14sp" />
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/bSignUp"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginRight="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/ic_bg_button"
+                    android:fontFamily="@font/nunito_regular"
+                    android:text="Sign Up"
+                    android:textColor="#fff" />
 
+            </LinearLayout>
+
+            <View
+                android:id="@+id/vLoadingBg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_bg_loading"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/vLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 

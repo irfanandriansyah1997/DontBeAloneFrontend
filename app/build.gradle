@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -14,6 +13,12 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+
+//        buildConfigField "String", "BASE_URL", "\"https://dontbealone.000webhostapp.com/\""
+        buildConfigField "String", "BASE_URL", "\"http://192.168.11.139/\""
+//        buildConfigField "String", "BASE_URL", "\"http://10.0.3.2/\""
+//        buildConfigField "String", "BASE_URL", "\"http://localhost/\""
     }
     buildTypes {
         release {
@@ -21,8 +26,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled true
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -36,6 +41,27 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'com.facebook.android:facebook-login:5.1.0'
+    implementation 'com.twitter.sdk.android:twitter:3.1.0'
+    implementation 'com.twitter.sdk.android:twitter-core:3.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation "com.squareup.retrofit2:retrofit:2.5.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.5.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation "com.google.android.gms:play-services-places:17.0.0"
+    implementation "com.google.android.gms:play-services-location:17.0.0"
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

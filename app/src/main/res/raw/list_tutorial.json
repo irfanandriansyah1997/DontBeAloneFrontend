@@ -1,0 +1,17 @@
+[
+  {
+    "image": "ic_hello",
+    "title_text": "Hello!",
+    "desc_text": "Don't be alone, be social!"
+  },
+  {
+    "image": "ic_having_fun",
+    "title_text": "Welcome!",
+    "desc_text": "Here you can find your new friends, new activities, new places, and more!"
+  },
+  {
+    "image": "ic_hang_out",
+    "title_text": "Enjoy!",
+    "desc_text": "Now go make some friends and ask them out!"
+  }
+]
