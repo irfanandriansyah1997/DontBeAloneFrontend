@@ -1,12 +1,10 @@
 package edu.unikom.dontbealone.view
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.Gson
 import edu.unikom.dontbealone.R
+import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
@@ -19,7 +17,6 @@ import org.jetbrains.anko.toast
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var sharedPreferences: SharedPreferences
     private var photo: String = ""
     private var name: String = ""
     private var uname: String = ""
@@ -35,7 +32,6 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        sharedPreferences = getSharedPreferences("edu.unikom.dontbealone.SHARED_PREFERENCES", Context.MODE_PRIVATE)
         uname =
             if (intent.extras != null && intent.extras.containsKey("uname")) intent.extras?.getString("uname")!! else ""
         name =
@@ -78,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
                     ).subscribeBy(
                         onNext = {
                             if (it.success) {
-                                sharedPreferences.edit().putString("current_user", Gson().toJson(it.data)).apply()
+                                Helpers.setCurrentuser(this, it.data)
                                 startActivity(intentFor<MainActivity>().newTask().clearTask())
                                 finish()
                             } else {

@@ -1,0 +1,185 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_menu">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/nunito_regular"
+            android:text="Create Activity"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/nunito_regular"
+            android:text="Create new activity and ask everyone out!"
+            android:textSize="12sp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inActName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            android:fontFamily="@font/nunito_regular"
+            android:hint="New activity name"
+            android:inputType="text|textNoSuggestions"
+            android:maxLines="1"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:textColor="#000"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inActDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@null"
+            android:fontFamily="@font/nunito_regular"
+            android:hint="Describe the activity"
+            android:inputType="text|textMultiLine|textNoSuggestions"
+            android:maxLines="6"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:scrollbars="vertical"
+            android:textColor="#000"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_chip"
+            android:drawableLeft="@drawable/ic_type"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/colorPrimary"
+            android:fontFamily="@font/nunito_regular"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="What kind of activity is this?"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_chip"
+            android:drawableLeft="@drawable/ic_location"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/colorPrimary"
+            android:fontFamily="@font/nunito_regular"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Where does the activity take place?"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_chip"
+            android:drawableLeft="@drawable/ic_calendar"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/colorPrimary"
+            android:fontFamily="@font/nunito_regular"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="When does the activity start?"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:background="@drawable/bg_chip"
+            android:drawableLeft="@drawable/ic_money"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/colorPrimary"
+            android:fontFamily="@font/nunito_regular"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="How much will it cost?"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/bInputCancel"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_close_circle" />
+
+            <Button
+                android:id="@+id/bInputSave"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/nunito_regular"
+                android:text="Save"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/vLoadingBg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_loading"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/vLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</RelativeLayout>

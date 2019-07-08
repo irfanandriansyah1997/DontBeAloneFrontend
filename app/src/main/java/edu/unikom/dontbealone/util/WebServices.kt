@@ -65,8 +65,8 @@ interface WebServices {
             val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
-//                .baseUrl(BuildConfig.BASE_URL)
-                .baseUrl(BuildConfig.BASE_URL + "dontbealone/")
+                .baseUrl(BuildConfig.BASE_URL)
+//                .baseUrl(BuildConfig.BASE_URL + "dontbealone/") /* local */
                 .client(client)
                 .build()
             return retrofit.create(WebServices::class.java)

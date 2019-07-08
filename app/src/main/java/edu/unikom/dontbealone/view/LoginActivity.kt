@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import com.twitter.sdk.android.core.models.User
+import edu.unikom.dontbealone.util.Helpers
 import kotlinx.android.synthetic.main.activity_login.inPassword
 import kotlinx.android.synthetic.main.activity_login.inUsername
 import kotlinx.android.synthetic.main.activity_login.vLoading
@@ -41,7 +42,6 @@ import org.jetbrains.anko.*
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var callbackManager: CallbackManager
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var googleSigninClient: GoogleSignInClient
     private lateinit var twitterAuthClient: TwitterAuthClient
 
@@ -64,7 +64,6 @@ class LoginActivity : AppCompatActivity() {
         Twitter.initialize(this);
         setContentView(edu.unikom.dontbealone.R.layout.activity_login)
         twitterAuthClient = TwitterAuthClient()
-        sharedPreferences = getSharedPreferences("edu.unikom.dontbealone.SHARED_PREFERENCES", Context.MODE_PRIVATE)
         LoginManager.getInstance().registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
@@ -269,7 +268,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleLogin(it: WebServiceResult<DataUser>) {
         if (it.success) {
-            sharedPreferences.edit().putString("current_user", Gson().toJson(it.data)).apply()
+            Helpers.setCurrentuser(this, it.data)
             startActivity(intentFor<MainActivity>().newTask().clearTask())
             finish()
         } else {

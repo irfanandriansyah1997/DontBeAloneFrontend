@@ -1,33 +1,99 @@
 package edu.unikom.dontbealone.view
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.google.gson.Gson
+import androidx.core.content.ContextCompat
 import edu.unikom.dontbealone.R
-import edu.unikom.dontbealone.model.DataUser
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.startActivity
+
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var sharedPreferences: SharedPreferences
+    lateinit var menu: MenuDialogFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        sharedPreferences = getSharedPreferences("edu.unikom.dontbealone.SHARED_PREFERENCES", Context.MODE_PRIVATE)
-        val user = Gson().fromJson(sharedPreferences.getString("current_user", null), DataUser::class.java)
-        txtHomeName.text = if (!user.name.equals("")) user.name else user.username
-        txtHomeEmail.text = user.email
-        Glide.with(this).load(user.photo).placeholder(R.drawable.ic_bg_img_default).into(imgHomeProfile)
-        bLogout.setOnClickListener {
-            sharedPreferences.edit().remove("current_user").apply()
-            startActivity<LoginActivity>()
-            finish()
+//        bLogout.setOnClickListener {
+//            Helpers.setCurrentuser(this, null)
+//            startActivity<LoginActivity>()
+//            finish()
+//        }
+        menu = MenuDialogFragment.newInstance({
+            when (it) {
+                R.id.bMenuProfile -> goToProfile()
+                R.id.bMenuHome -> goToHome()
+                R.id.bMenuFriend -> goToFriend()
+                R.id.bMenuMyAct -> goToMyAct()
+                R.id.bMenuMessage -> goToMessage()
+            }
+        })
+        bBottomNavMenu.setOnClickListener {
+            menu.show(
+                supportFragmentManager,
+                "menu_dialog_fragment"
+            )
         }
+        bNewActivity.setOnClickListener {
+            if (menu.selectedMenuId == R.id.bMenuMyAct) {
+                val input = InputDialogFragment.newInstance({
+
+                })
+                input.show(
+                    supportFragmentManager,
+                    "input_dialog_fragment"
+                )
+            }
+        }
+        goToHome()
+    }
+
+    fun goToProfile() {
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, ProfileFragment()).commit()
+    }
+
+    fun goToHome() {
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, HomeFragment()).commit()
+        bNewActivity.text = "Find Activity"
+        bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
+            ContextCompat.getDrawable(this, R.drawable.ic_search),
+            null,
+            null,
+            null
+        )
+    }
+
+    fun goToFriend() {
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, FriendFragment()).commit()
+        bNewActivity.text = "Add Friend"
+        bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
+            ContextCompat.getDrawable(this, R.drawable.ic_add_friend),
+            null,
+            null,
+            null
+        )
+    }
+
+    fun goToMyAct() {
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, MyActFragment()).commit()
+        bNewActivity.text = "Create Activity"
+        bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
+            ContextCompat.getDrawable(this, R.drawable.ic_plus),
+            null,
+            null,
+            null
+        )
+    }
+
+    fun goToMessage() {
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, MessageFragment()).commit()
+        bNewActivity.text = "New Message"
+        bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
+            ContextCompat.getDrawable(this, R.drawable.ic_new_message),
+            null,
+            null,
+            null
+        )
     }
 }

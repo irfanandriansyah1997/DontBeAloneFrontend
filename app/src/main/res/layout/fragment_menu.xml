@@ -1,0 +1,186 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_menu"
+    tools:context=".view.MenuDialogFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bMenuProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:paddingBottom="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgMenuProfile"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_img_default"
+                android:tint="@color/colorGrey"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtMenuName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/nunito_regular"
+                android:text="Syauqi Ilham"
+                android:textColor="#000"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/imgMenuProfile"
+                app:layout_constraintTop_toTopOf="@id/imgMenuProfile" />
+
+            <TextView
+                android:id="@+id/txtMenuEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtMenuName"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/nunito_regular"
+                android:text="syauqiilham28@gmail.com"
+                android:textColor="#000"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/imgMenuProfile"
+                app:layout_constraintLeft_toRightOf="@id/imgMenuProfile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#80CCCCCC"
+            app:layout_constraintTop_toBottomOf="@id/bMenuProfile" />
+
+        <TextView
+            android:id="@+id/bMenuHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_home"
+            android:drawablePadding="16dp"
+            android:drawableTint="#5f6368"
+            android:fontFamily="@font/nunito_regular"
+            android:paddingLeft="24dp"
+            android:paddingTop="16dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="16dp"
+            android:text="Home"
+            android:textColor="#5f6368"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/view1" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#80CCCCCC"
+            app:layout_constraintTop_toBottomOf="@id/bMenuHome" />
+
+        <TextView
+            android:id="@+id/bMenuFriend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_timeline"
+            android:drawablePadding="16dp"
+            android:drawableTint="#5f6368"
+            android:fontFamily="@font/nunito_regular"
+            android:paddingLeft="24dp"
+            android:paddingTop="16dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="16dp"
+            android:text="Friend"
+            android:textColor="#5f6368"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/view2" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#80CCCCCC"
+            app:layout_constraintTop_toBottomOf="@id/bMenuFriend" />
+
+        <TextView
+            android:id="@+id/bMenuMyAct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_activity"
+            android:drawablePadding="16dp"
+            android:drawableTint="#5f6368"
+            android:fontFamily="@font/nunito_regular"
+            android:paddingLeft="24dp"
+            android:paddingTop="16dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="16dp"
+            android:text="My Activity"
+            android:textColor="#5f6368"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/view3" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#80CCCCCC"
+            app:layout_constraintTop_toBottomOf="@id/bMenuMyAct" />
+
+        <TextView
+            android:id="@+id/bMenuMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_message"
+            android:drawablePadding="16dp"
+            android:drawableTint="#5f6368"
+            android:fontFamily="@font/nunito_regular"
+            android:paddingLeft="24dp"
+            android:paddingTop="16dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="16dp"
+            android:text="Message"
+            android:textColor="#5f6368"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/view4" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#80CCCCCC"
+            app:layout_constraintTop_toBottomOf="@id/bMenuMessage" />
+
+        <TextView
+            android:id="@+id/bCopyright"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/nunito_regular"
+            android:paddingLeft="24dp"
+            android:paddingTop="16dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="16dp"
+            android:text="Copyright 2019 \t Don't be Alone Team"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
