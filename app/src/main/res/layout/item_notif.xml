@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="8dp"
+    android:paddingTop="16dp"
+    android:paddingRight="8dp"
+    android:paddingBottom="16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/notifImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_gunung" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tNotifContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_regular"
+            android:maxLines="2"
+            android:textColor="#5f6368"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@id/tActivityAddress"
+            app:layout_constraintLeft_toLeftOf="@id/tActivityAddress"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Syauqi Ilham requested to join F" />
+
+        <TextView
+            android:id="@+id/tNotifTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_chip"
+            android:drawableLeft="@drawable/ic_calendar"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/colorPrimary"
+            android:fontFamily="@font/nunito_regular"
+            android:paddingLeft="4dp"
+            android:paddingTop="2dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="2dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="21:00" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#80cccccc" />
+
+    <!--<de.hdodenhof.circleimageview.CircleImageView-->
+    <!--android:id="@+id/tActivityUserImage"-->
+    <!--android:layout_width="16dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--app:layout_constraintBottom_toBottomOf="@id/tActivityTimeBg"-->
+    <!--app:layout_constraintDimensionRatio="w, 1:1"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="@id/tActivityTimeBg"-->
+    <!--tools:src="@mipmap/ic_launcher" />-->
+
+</LinearLayout>

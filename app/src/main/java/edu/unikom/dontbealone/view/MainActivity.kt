@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import edu.unikom.dontbealone.R
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,8 +36,20 @@ class MainActivity : AppCompatActivity() {
                 "menu_dialog_fragment"
             )
         }
+        bBottomNavNotif.setOnClickListener {
+            startActivity<NotificationActivity>()
+        }
         bNewActivity.setOnClickListener {
-            if (menu.selectedMenuId == R.id.bMenuMyAct) {
+            if (menu.selectedMenuId == R.id.bMenuHome) {
+                startActivity<NearbyListActivity>()
+//                val input = SearchActivityDialogFragment.newInstance({
+//
+//                })
+//                input.show(
+//                    supportFragmentManager,
+//                    "search_activity_dialog_fragment"
+//                )
+            } else if (menu.selectedMenuId == R.id.bMenuMyAct) {
                 val input = InputDialogFragment.newInstance({
 
                 })
@@ -76,7 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToMyAct() {
-        supportFragmentManager.beginTransaction().replace(mainFrame.id, MyActFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, ListActivityFragment()).commit()
         bNewActivity.text = "Create Activity"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
             ContextCompat.getDrawable(this, R.drawable.ic_plus),

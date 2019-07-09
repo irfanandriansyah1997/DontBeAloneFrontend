@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import edu.unikom.dontbealone.R
 
-class MyActFragment : Fragment() {
+class ListActivityFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_my_activity, container, false)
+        return inflater.inflate(R.layout.fragment_list_activity, container, false)
     }
 
 }

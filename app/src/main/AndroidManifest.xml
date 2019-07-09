@@ -29,7 +29,9 @@
         <activity
             android:name=".view.MainActivity"
             android:windowSoftInputMode="adjustResize" />
-
+        <activity android:name=".view.NearbyListActivity" />
+        <activity android:name=".view.DetailActivity" />
+        <activity android:name=".view.NotificationActivity" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -57,7 +59,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
