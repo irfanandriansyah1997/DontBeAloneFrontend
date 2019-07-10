@@ -9,7 +9,7 @@ data class DataNotif(
     @SerializedName("content")
     var content: String,
     @SerializedName("photo")
-    var photo: String,
+    var photo: String?,
     @SerializedName("time")
     var time: String
 )

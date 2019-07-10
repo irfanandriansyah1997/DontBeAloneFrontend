@@ -1,5 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_menu">
@@ -40,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:background="@null"
+            android:ellipsize="end"
             android:fontFamily="@font/nunito_regular"
             android:hint="New activity name"
             android:inputType="text|textNoSuggestions"
@@ -67,62 +69,80 @@
             android:textSize="13sp" />
 
         <TextView
+            android:id="@+id/bInputType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/bg_chip"
             android:drawableLeft="@drawable/ic_type"
             android:drawablePadding="8dp"
             android:drawableTint="@color/colorPrimary"
+            android:ellipsize="end"
             android:fontFamily="@font/nunito_regular"
             android:gravity="center"
+            android:maxLines="1"
             android:padding="8dp"
             android:text="What kind of activity is this?"
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/bInputMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/bg_chip"
-            android:drawableLeft="@drawable/ic_location"
+            android:drawableLeft="@drawable/ic_location_small"
             android:drawablePadding="8dp"
             android:drawableTint="@color/colorPrimary"
+            android:ellipsize="end"
             android:fontFamily="@font/nunito_regular"
             android:gravity="center"
+            android:maxLines="1"
             android:padding="8dp"
             android:text="Where does the activity take place?"
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/bInputTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/bg_chip"
             android:drawableLeft="@drawable/ic_calendar"
             android:drawablePadding="8dp"
             android:drawableTint="@color/colorPrimary"
+            android:ellipsize="end"
             android:fontFamily="@font/nunito_regular"
             android:gravity="center"
+            android:maxLines="1"
             android:padding="8dp"
             android:text="When does the activity start?"
             android:textSize="12sp" />
 
-        <TextView
+        <EditText
+            android:id="@+id/inActPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:background="@drawable/bg_chip"
             android:drawableLeft="@drawable/ic_money"
             android:drawablePadding="8dp"
             android:drawableTint="@color/colorPrimary"
+            android:ellipsize="end"
             android:fontFamily="@font/nunito_regular"
-            android:gravity="center"
+            android:hint="How much will it cost?"
+            android:inputType="number"
+            android:maxLines="1"
             android:padding="8dp"
-            android:text="How much will it cost?"
+            android:textColor="#727272"
+            android:textColorHint="#727272"
             android:textSize="12sp" />
 
         <RelativeLayout
@@ -161,7 +181,7 @@
         android:id="@+id/vLoadingBg"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/bg_loading"
+        android:background="@drawable/bg_loading_dialog"
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -169,7 +189,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/vLoading"
@@ -180,6 +201,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 
-</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

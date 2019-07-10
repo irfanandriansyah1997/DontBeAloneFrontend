@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="8dp"
+    android:background="?attr/selectableItemBackground"
     android:orientation="horizontal"
     android:padding="8dp">
 
@@ -24,19 +25,41 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tActivityName"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="@font/nunito_regular"
-            android:textColor="#5f6368"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/tActivityAddress"
-            app:layout_constraintLeft_toLeftOf="@id/tActivityAddress"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Futsal Friendly Match" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tActivityName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/nunito_regular"
+                android:textColor="#5f6368"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tActivityAddress"
+                app:layout_constraintLeft_toLeftOf="@id/tActivityAddress"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Futsal Friendly Match" />
+
+            <TextView
+                android:id="@+id/tActivityDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_chip"
+                android:fontFamily="@font/nunito_regular"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1km" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tActivityAddress"
@@ -56,80 +79,44 @@
             android:layout_marginTop="4dp"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tActivityTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
                 android:background="@drawable/bg_chip"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/colorPrimary"
+                android:fontFamily="@font/nunito_regular"
                 android:paddingLeft="4dp"
                 android:paddingTop="2dp"
                 android:paddingRight="4dp"
-                android:paddingBottom="2dp">
+                android:paddingBottom="2dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="21:00" />
 
-                <ImageView
-                    android:id="@+id/tActivityTimeImage"
-                    android:layout_width="16dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:tint="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="w, 1:1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/tActivityTime"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_calendar" />
-
-                <TextView
-                    android:id="@+id/tActivityTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_regular"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="21:00" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tActivityPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
                 android:background="@drawable/bg_chip"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:drawableLeft="@drawable/ic_money"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/colorPrimary"
+                android:fontFamily="@font/nunito_regular"
                 android:paddingLeft="4dp"
                 android:paddingTop="2dp"
                 android:paddingRight="4dp"
-                android:paddingBottom="2dp">
-
-                <ImageView
-                    android:id="@+id/tActivityPriceImage"
-                    android:layout_width="16dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:tint="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="w, 1:1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/tActivityTime"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_money" />
-
-                <TextView
-                    android:id="@+id/tActivityPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_regular"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Rp 25.000" />
-
-            </LinearLayout>
+                android:paddingBottom="2dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Rp 25.000" />
 
         </LinearLayout>
 

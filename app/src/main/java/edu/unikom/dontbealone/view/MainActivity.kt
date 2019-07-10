@@ -1,9 +1,11 @@
 package edu.unikom.dontbealone.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import edu.unikom.dontbealone.R
+import edu.unikom.dontbealone.util.Helpers
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
@@ -64,10 +66,19 @@ class MainActivity : AppCompatActivity() {
 
     fun goToProfile() {
         supportFragmentManager.beginTransaction().replace(mainFrame.id, ProfileFragment()).commit()
+        bNewActivity.visibility = View.GONE
+        bNewActivity.text = "Edit Profile"
+        bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
+            ContextCompat.getDrawable(this, R.drawable.ic_new_message),
+            null,
+            null,
+            null
+        )
     }
 
     fun goToHome() {
         supportFragmentManager.beginTransaction().replace(mainFrame.id, HomeFragment()).commit()
+        bNewActivity.visibility = View.VISIBLE
         bNewActivity.text = "Find Activity"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
             ContextCompat.getDrawable(this, R.drawable.ic_search),
@@ -79,6 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     fun goToFriend() {
         supportFragmentManager.beginTransaction().replace(mainFrame.id, FriendFragment()).commit()
+        bNewActivity.visibility = View.VISIBLE
         bNewActivity.text = "Add Friend"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
             ContextCompat.getDrawable(this, R.drawable.ic_add_friend),
@@ -89,7 +101,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToMyAct() {
-        supportFragmentManager.beginTransaction().replace(mainFrame.id, ListActivityFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, ListActivityFragment.newInstance(Helpers.getCurrentUser(this).username)).commit()
+        bNewActivity.visibility = View.VISIBLE
         bNewActivity.text = "Create Activity"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
             ContextCompat.getDrawable(this, R.drawable.ic_plus),
@@ -101,6 +114,7 @@ class MainActivity : AppCompatActivity() {
 
     fun goToMessage() {
         supportFragmentManager.beginTransaction().replace(mainFrame.id, MessageFragment()).commit()
+        bNewActivity.visibility = View.VISIBLE
         bNewActivity.text = "New Message"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
             ContextCompat.getDrawable(this, R.drawable.ic_new_message),

@@ -36,11 +36,17 @@ class ListActivityAdapter(private val items: List<DataActivity>, private val cli
 
         fun bind(item: DataActivity, listener: (DataActivity) -> Unit) {
             tActivityName.text = item.name
-            tActivityAddress.text = item.address
+            tActivityAddress.text = item.address.replace(";", ", ")
             tActivityTime.text = item.time
             tActivityPrice.text = item.price
+            tActivityDistance.text = String.format("%.1f", item.distance) + "km"
+            tActivityDistance.visibility = if (item.distance != null) View.VISIBLE else View.GONE
             val resID = containerView.context.resources
-                .getIdentifier(item.type.icon, "drawable", containerView.context.packageName)
+                .getIdentifier(
+                    if (item.type.icon != null) item.type.icon else "ic_futsal",
+                    "drawable",
+                    containerView.context.packageName
+                )
             Glide.with(containerView).load(resID).into(activityTypeImage)
 //            Glide.with(containerView).load(item.user.photo).into(tActivityUserImage)
             containerView.setOnClickListener { listener(item) }

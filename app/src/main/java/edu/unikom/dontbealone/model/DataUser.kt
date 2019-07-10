@@ -8,10 +8,16 @@ import com.google.gson.annotations.SerializedName
 data class DataUser(
     @SerializedName("username")
     var username: String,
+    @SerializedName("bio")
+    var bio: String?,
     @SerializedName("email")
     var email: String,
     @SerializedName("name")
-    var name: String,
+    var name: String?,
     @SerializedName("photo")
-    var photo: String
+    var photo: String?,
+    @SerializedName("phone_number")
+    var phoneNumber: String?,
+    @SerializedName("address")
+    var address: String?
 )

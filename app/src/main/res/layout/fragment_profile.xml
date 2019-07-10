@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,10 +29,11 @@
                 android:layout_height="120dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="32dp"
-                android:tint="@color/colorGrey"
+                android:background="@drawable/bg_img_default"
                 app:civ_border_color="#fff"
                 app:civ_border_width="2dp"
-                app:civ_circle_background_color="@color/colorGrey" />
+                app:civ_circle_background_color="@color/colorGrey"
+                app:srcCompat="@drawable/ic_user" />
 
             <TextView
                 android:id="@+id/txtProfileName"
@@ -45,6 +47,16 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 tools:text="Syauqi Ilham Alfaraci" />
+
+            <ImageView
+                android:id="@+id/btnProfileSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="16dp"
+                android:tint="#fff"
+                app:srcCompat="@drawable/ic_setting" />
 
             <!--<Button-->
             <!--android:id="@+id/btnProfileAbout"-->
@@ -63,6 +75,7 @@
             android:padding="16dp">
 
             <View
+                android:id="@+id/txtProfileBioLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="16dp"
@@ -70,6 +83,7 @@
                 android:background="@color/colorGrey" />
 
             <TextView
+                android:id="@+id/txtProfileBioTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
@@ -108,113 +122,61 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/btnProfileEmail"
+            <TextView
+                android:id="@+id/txtProfileEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:drawableLeft="@drawable/ic_email"
+                android:drawablePadding="16dp"
+                android:drawableTint="@color/colorAccent"
+                android:fontFamily="@font/nunito_regular"
+                android:padding="8dp"
+                android:textColor="#383838"
+                android:textSize="13sp"
+                tools:text="syauqiilham28@gmail.com" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="16dp"
-                    android:tint="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_email" />
-
-                <TextView
-                    android:id="@+id/txtProfileEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_regular"
-                    android:textColor="#383838"
-                    android:textSize="13sp"
-                    tools:text="syauqiilham28@gmail.com" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btnProfilePhone"
+            <TextView
+                android:id="@+id/txtProfilePhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:drawableLeft="@drawable/ic_phone"
+                android:drawablePadding="16dp"
+                android:drawableTint="@color/colorAccent"
+                android:fontFamily="@font/nunito_regular"
+                android:padding="8dp"
+                android:textColor="#383838"
+                android:textSize="13sp"
+                tools:text="087750584021" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="16dp"
-                    android:tint="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_phone" />
-
-                <TextView
-                    android:id="@+id/txtProfilePhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_regular"
-                    android:textColor="#383838"
-                    android:textSize="13sp"
-                    tools:text="087750480421" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btnProfileFacebook"
+            <TextView
+                android:id="@+id/txtProfileFacebook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:drawableLeft="@drawable/ic_facebook"
+                android:drawablePadding="16dp"
+                android:drawableTint="@color/colorAccent"
+                android:fontFamily="@font/nunito_regular"
+                android:padding="8dp"
+                android:textColor="#383838"
+                android:textSize="13sp"
+                tools:text="Syauqi Ilham" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="16dp"
-                    android:tint="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_facebook" />
-
-                <TextView
-                    android:id="@+id/txtProfileFacebook"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_regular"
-                    android:textColor="#383838"
-                    android:textSize="13sp"
-                    tools:text="Syauqi Ilham" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btnProfileTwitter"
+            <TextView
+                android:id="@+id/txtProfileTwitter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="16dp"
-                    android:tint="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_twitter" />
-
-                <TextView
-                    android:id="@+id/txtProfileTwitter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_regular"
-                    android:textColor="#383838"
-                    android:textSize="13sp"
-                    tools:text="cukil69" />
-
-            </LinearLayout>
+                android:drawableLeft="@drawable/ic_twitter"
+                android:drawablePadding="16dp"
+                android:drawableTint="@color/colorAccent"
+                android:fontFamily="@font/nunito_regular"
+                android:padding="8dp"
+                android:textColor="#383838"
+                android:textSize="13sp"
+                tools:text="cukil69" />
 
             <View
                 android:layout_width="match_parent"
@@ -234,31 +196,19 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/txtProfileAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="16dp"
-                    android:tint="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_location" />
-
-                <TextView
-                    android:id="@+id/txtProfileAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_regular"
-                    android:textColor="#383838"
-                    android:textSize="13sp"
-                    tools:text="Lorem impsum dolor sit amet slasd asdlasd asdlasda s" />
-
-            </LinearLayout>
+                android:background="?attr/selectableItemBackground"
+                android:drawableLeft="@drawable/ic_location"
+                android:drawablePadding="16dp"
+                android:drawableTint="@color/colorAccent"
+                android:fontFamily="@font/nunito_regular"
+                android:padding="8dp"
+                android:textColor="#383838"
+                android:textSize="13sp"
+                tools:text="Jl. Mentor No 96, Bandung, Indonesia" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

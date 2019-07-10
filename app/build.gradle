@@ -15,7 +15,8 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
 
-        buildConfigField "String", "BASE_URL", "\"https://dontbealone.000webhostapp.com/\""
+        buildConfigField "String", "BASE_URL", "\"http://111.92.169.32/\""
+//        buildConfigField "String", "BASE_URL", "\"https://dontbealone.000webhostapp.com/\""
 //        buildConfigField "String", "BASE_URL", "\"http://192.168.11.139/\""
 //        buildConfigField "String", "BASE_URL", "\"http://10.0.3.2/\"" /* local */
 //        buildConfigField "String", "BASE_URL", "\"http://localhost/\""
@@ -59,7 +60,7 @@ dependencies {
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation "com.google.android.gms:play-services-places:17.0.0"
+    implementation 'com.google.android.libraries.places:places:1.1.0'
     implementation "com.google.android.gms:play-services-location:17.0.0"
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     testImplementation 'junit:junit:4.12'

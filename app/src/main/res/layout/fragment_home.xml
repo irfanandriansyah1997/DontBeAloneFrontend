@@ -55,27 +55,18 @@
             android:clipToPadding="false"
             android:padding="16dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:fontFamily="@font/nunito_regular"
-            android:text="Nearby activities"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:fontFamily="@font/nunito_regular"
-            android:text="Here are some nearby activities that you may like"
-            android:textSize="12sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listNearbyAct"
+        <Button
+            android:id="@+id/bMyActivity"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_button"
+            android:fontFamily="@font/nunito_regular"
+            android:text="View all my activity"
+            android:textColor="#fff" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -95,10 +86,11 @@
             android:textSize="12sp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listNewAct"
+            android:id="@+id/listTrendAct"
+            android:clipToPadding="false"
+            android:padding="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp" />
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/bLogout"
@@ -114,6 +106,19 @@
             android:text="LOGOUT"
             android:textColor="#fff"
             android:visibility="gone" />
+
+        <Button
+            android:id="@+id/bTrendActivity"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_button"
+            android:fontFamily="@font/nunito_regular"
+            android:text="View all categories"
+            android:textColor="#fff" />
 
     </LinearLayout>
 

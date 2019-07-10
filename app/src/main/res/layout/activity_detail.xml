@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <ScrollView
@@ -53,21 +54,23 @@
                     android:padding="24dp">
 
                     <TextView
+                        android:id="@+id/tActivityName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/nunito_regular"
-                        android:text="Nobar Avenger Endgame"
+                        tools:text="Nobar Avenger Endgame"
                         android:textColor="#000"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tActivityAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/nunito_regular"
-                        android:text="Empire XXI, Bandung Indah Plaza"
+                        tools:text="Empire XXI, Bandung Indah Plaza"
                         android:textSize="13sp" />
 
                     <View
@@ -78,14 +81,16 @@
                         android:background="#80cccccc" />
 
                     <TextView
+                        android:id="@+id/tActivityDesc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="24dp"
                         android:fontFamily="@font/nunito_regular"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet scelerisque nibh, id consectetur ex. Nulla finibus mollis hendrerit. Proin laoreet pharetra est sed luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent eget ante sollicitudin, auctor metus vel, tempus sem. Integer ipsum erat, porttitor quis fringilla et, feugiat nec lectus. Ut elementum eu eros nec elementum. Nulla a faucibus odio, vestibulum congue lorem. Aenean interdum nec orci in facilisis. Donec ut leo ante. Pellentesque lacinia fermentum risus, vel commodo nisi pulvinar eget."
+                        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet scelerisque nibh, id consectetur ex. Nulla finibus mollis hendrerit. Proin laoreet pharetra est sed luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent eget ante sollicitudin, auctor metus vel, tempus sem. Integer ipsum erat, porttitor quis fringilla et, feugiat nec lectus. Ut elementum eu eros nec elementum. Nulla a faucibus odio, vestibulum congue lorem. Aenean interdum nec orci in facilisis. Donec ut leo ante. Pellentesque lacinia fermentum risus, vel commodo nisi pulvinar eget."
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tActivityType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -95,10 +100,11 @@
                         android:fontFamily="@font/nunito_regular"
                         android:gravity="center"
                         android:padding="8dp"
-                        android:text="Movies"
+                        tools:text="Movies"
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tActivityTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -109,10 +115,11 @@
                         android:fontFamily="@font/nunito_regular"
                         android:gravity="center"
                         android:padding="8dp"
-                        android:text="Wed, 21-07-2019 17:20"
+                        tools:text="Wed, 21-07-2019 17:20"
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tActivityPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -123,7 +130,7 @@
                         android:fontFamily="@font/nunito_regular"
                         android:gravity="center"
                         android:padding="8dp"
-                        android:text="Rp 25.000"
+                        tools:text="Rp 25.000"
                         android:textSize="12sp" />
 
                     <View
