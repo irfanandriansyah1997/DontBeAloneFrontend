@@ -9,15 +9,13 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 
 interface WebServices {
 
-    @FormUrlEncoded
-    @POST("auth/is_username_exists")
-    fun isUsernameExists(@Field("username") username: String): Observable<WebServiceResult<Boolean>>
+    @GET("auth/is_username_exists")
+    fun isUsernameExists(@Query("username") username: String): Observable<WebServiceResult<Boolean>>
 
     @FormUrlEncoded
     @POST("auth/login")
@@ -78,6 +76,12 @@ interface WebServices {
     @GET("activity/get_activity_type")
     fun getActivityType(): Observable<WebServiceResult<List<DataActivityType>>>
 
+    @GET("activity/get_activity_type_trending")
+    fun getActivityTypeTrending(): Observable<WebServiceResult<List<DataActivityType>>>
+
+    @GET("activity/get_user_role/{id}/{username}")
+    fun getUserRoleActivity(@Path("id") id: String, @Path("username") username: String): Observable<WebServiceResult<DataActivityUser>>
+
     @FormUrlEncoded
     @POST("activity/insert")
     fun insertActivity(
@@ -105,17 +109,16 @@ interface WebServices {
         @Field("username") username: String
     ): Observable<WebServiceResultPost>
 
-    @FormUrlEncoded
     @POST("activity/banned/{id}")
-    fun cancelActivity(@Path("id") id: Int): Observable<WebServiceResult<DataActivity>>
+    fun cancelActivity(@Path("id") id: String): Observable<WebServiceResult<DataActivity>>
 
     @FormUrlEncoded
     @POST("activity/join_activity")
-    fun joinActivity(@Query("id_activity") id: Int, @Query("username") username: String): Observable<WebServiceResult<DataActivity>>
+    fun joinActivity(@Field("id_activity") id: String, @Field("username") username: String): Observable<WebServiceResult<DataActivity>>
 
     @FormUrlEncoded
     @POST("activity/grant_activity")
-    fun grantActivity(@Query("id_activity") id: Int, @Query("username") username: String, @Query("status") status: Int): Observable<WebServiceResult<DataActivity>>
+    fun grantActivity(@Field("id_activity") id: String, @Field("username") username: String, @Field("status") status: Int): Observable<WebServiceResult<DataActivity>>
 
     companion object {
         lateinit var client: OkHttpClient

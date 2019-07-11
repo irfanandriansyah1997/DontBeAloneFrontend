@@ -13,7 +13,7 @@ data class DataActivity(
     @SerializedName("activity_type")
     var type: DataActivityType,
     @SerializedName("activity_user")
-    var user: DataUser,
+    var user: DataUser?,
     @SerializedName("activity_member")
     var member: List<DataUser>,
     @SerializedName("datetime")

@@ -12,15 +12,15 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_activity_type.*
 
 
-class ListActivityTypeAdapter(
+class ListActivityTypeListAdapter(
     private val items: List<DataActivityType>,
     private val clickListener: (DataActivityType) -> Unit
 ) :
-    RecyclerView.Adapter<ListActivityTypeAdapter.DataActivityTypeListViewHolder>() {
+    RecyclerView.Adapter<ListActivityTypeListAdapter.DataActivityTypeListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DataActivityTypeListViewHolder(
         LayoutInflater.from(parent.context).inflate(
-            R.layout.item_activity_type, parent, false
+            R.layout.item_activity_type_list, parent, false
         )
     )
 

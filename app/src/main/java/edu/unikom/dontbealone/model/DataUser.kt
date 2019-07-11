@@ -19,5 +19,9 @@ data class DataUser(
     @SerializedName("phone_number")
     var phoneNumber: String?,
     @SerializedName("address")
-    var address: String?
+    var address: String?,
+    @SerializedName("level_user")
+    var level: String?,
+    @SerializedName("status")
+    var status: String?
 )

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import edu.unikom.dontbealone.R
 import edu.unikom.dontbealone.util.Helpers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -13,7 +14,7 @@ import org.jetbrains.anko.startActivity
 class MainActivity : AppCompatActivity() {
 
     lateinit var menu: MenuDialogFragment
-
+    var currentFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 //                )
             } else if (menu.selectedMenuId == R.id.bMenuMyAct) {
                 val input = InputDialogFragment.newInstance({
-
+                    (currentFragment as ListActivityFragment).loadActivity()
                 })
                 input.show(
                     supportFragmentManager,
@@ -65,7 +66,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToProfile() {
-        supportFragmentManager.beginTransaction().replace(mainFrame.id, ProfileFragment()).commit()
+        menu.selectedMenuId = R.id.bMenuProfile
+        currentFragment = ProfileFragment()
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, currentFragment!!).commit()
         bNewActivity.visibility = View.GONE
         bNewActivity.text = "Edit Profile"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
@@ -77,7 +80,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToHome() {
-        supportFragmentManager.beginTransaction().replace(mainFrame.id, HomeFragment()).commit()
+        menu.selectedMenuId = R.id.bMenuHome
+        currentFragment = HomeFragment()
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, currentFragment!!).commit()
         bNewActivity.visibility = View.VISIBLE
         bNewActivity.text = "Find Activity"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
@@ -89,7 +94,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToFriend() {
-        supportFragmentManager.beginTransaction().replace(mainFrame.id, FriendFragment()).commit()
+        menu.selectedMenuId = R.id.bMenuFriend
+        currentFragment = FriendFragment()
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, currentFragment!!).commit()
         bNewActivity.visibility = View.VISIBLE
         bNewActivity.text = "Add Friend"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
@@ -101,7 +108,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToMyAct() {
-        supportFragmentManager.beginTransaction().replace(mainFrame.id, ListActivityFragment.newInstance(Helpers.getCurrentUser(this).username)).commit()
+        menu.selectedMenuId = R.id.bMenuMyAct
+        currentFragment = ListActivityFragment.newInstance(Helpers.getCurrentUser(this).username)
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, currentFragment!!).commit()
         bNewActivity.visibility = View.VISIBLE
         bNewActivity.text = "Create Activity"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
@@ -113,7 +122,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goToMessage() {
-        supportFragmentManager.beginTransaction().replace(mainFrame.id, MessageFragment()).commit()
+        menu.selectedMenuId = R.id.bMenuMessage
+        currentFragment = MessageFragment()
+        supportFragmentManager.beginTransaction().replace(mainFrame.id, currentFragment!!).commit()
         bNewActivity.visibility = View.VISIBLE
         bNewActivity.text = "New Message"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(

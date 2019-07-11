@@ -80,6 +80,7 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
     private var listActivity = mutableListOf<DataActivity>()
     private var lat: Double = 0.0
     private var lng: Double = 0.0
+    private var type: Int = -1
     private var locationRequest: LocationRequest? = null
     private var googleApiClient: GoogleApiClient? = null
     private var listener: (loaded: Boolean) -> Unit = {}
@@ -105,6 +106,13 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
             fragment.listener = loadListener
             return fragment
         }
+
+        fun newInstance(loadListener: (loaded: Boolean) -> Unit, type: Int): ListActivityFragment {
+            val fragment = ListActivityFragment()
+            fragment.listener = loadListener
+            fragment.type = type
+            return fragment
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -113,20 +121,8 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (username == null) {
-            Log.d("gps_test", "masuk")
-            checkGPSPermission(view.context)
-            googleApiClient = GoogleApiClient.Builder(view.context)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build()
-            googleApiClient!!.connect()
-            checkGPS(view.context)
-            createLocationRequest()
-        }
         titleListAct.text = if (username != null) "My Activity" else "Nearby Activity"
-        listActAdapter = ListActivityAdapter(listActivity, {
+        listActAdapter = ListActivityAdapter(activity!!, listActivity, {
             startActivity<DetailActivity>("id_activity" to it.id)
         })
         listAct.adapter = listActAdapter
@@ -134,7 +130,7 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
         listAct.isNestedScrollingEnabled = false
     }
 
-    fun checkGPSPermission(context: Context) {
+    fun checkGPSPermission(context: Context, load: Boolean) {
         Log.d("gps_test", "masuk check permission")
         if (ContextCompat.checkSelfPermission(
                 context,
@@ -149,15 +145,29 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-
+            if (load) {
+                googleApiClient = GoogleApiClient.Builder(context)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build()
+                createLocationRequest()
+                googleApiClient!!.connect()
+                checkGPS(context)
+            }
         } else {
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.INTERNET,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ), 124
-            )
+            if (load) {
+                toast("Sorry, but we need your gps access to help you find nearby activities :(")
+                activity?.finish()
+            } else {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ), 124
+                )
+            }
         }
     }
 
@@ -213,16 +223,26 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 124) {
-
+        if (requestCode == 124 && context != null) {
+            checkGPSPermission(context!!, true)
         }
     }
 
     override fun onResume() {
         super.onResume()
         if (context != null) {
-            checkGPSPermission(context!!)
-            checkGPS(context!!)
+            if (username == null) {
+                Log.d("gps_test", "masuk")
+                checkGPSPermission(context!!, false)
+                googleApiClient = GoogleApiClient.Builder(context!!)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build()
+                googleApiClient!!.connect()
+                checkGPS(context!!)
+                createLocationRequest()
+            }
             if (username != null || (lat != 0.0 && lng != 0.0))
                 loadActivity()
         }
@@ -234,7 +254,7 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
         if (username != null)
             call = webServices.getActivityByUser(username!!, -1)
         else
-            call = webServices.getActivity(lat, lng, 1, 50)
+            call = webServices.getActivity(lat, lng, type, 50)
         call.subscribeOn(
             Schedulers.io()
         ).observeOn(

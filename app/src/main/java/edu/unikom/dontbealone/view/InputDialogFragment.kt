@@ -4,20 +4,25 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import edu.unikom.dontbealone.R
+import edu.unikom.dontbealone.util.GlideApp
 import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,7 +42,7 @@ import java.util.*
 class InputDialogFragment : BottomSheetDialogFragment() {
 
     companion object {
-        fun newInstance(listener: (menuId: Int) -> Unit): InputDialogFragment {
+        fun newInstance(listener: () -> Unit): InputDialogFragment {
             var fragment = InputDialogFragment()
             fragment.listener = listener
             return fragment
@@ -48,9 +53,9 @@ class InputDialogFragment : BottomSheetDialogFragment() {
         WebServices.create()
     }
 
-    lateinit var listener: (menuId: Int) -> Unit
+    lateinit var listener: () -> Unit
 
-    var type: Int = 1
+    var type: Int = 0
     var lat: Double = 0.0
     var lng: Double = 0.0
     var address: String = ""
@@ -95,6 +100,7 @@ class InputDialogFragment : BottomSheetDialogFragment() {
                 override fun onSlide(@NonNull bottomSheet: View, slideOffset: Float) {}
             })
         }
+        bInputType.setOnClickListener { startActivityForResult<TypePickerActivity>(TypePickerActivity.TYPE_PICKER_REQUEST) }
         bInputMap.setOnClickListener { startActivityForResult<MapsPickerActivity>(MapsPickerActivity.MAPS_PICKER_REQUEST) }
         bInputTime.setOnClickListener { getDate() }
         inActPrice.addTextChangedListener(object : TextWatcher {
@@ -109,7 +115,10 @@ class InputDialogFragment : BottomSheetDialogFragment() {
             }
 
         })
-        bInputCancel.setOnClickListener { dismiss() }
+        bInputCancel.setOnClickListener {
+            listener()
+            dismiss()
+        }
         bInputSave.setOnClickListener {
             if (inActName.text.toString().trim().length > 0 &&
                 inActDesc.text.toString().trim().length > 0 &&
@@ -117,14 +126,6 @@ class InputDialogFragment : BottomSheetDialogFragment() {
                 type != 0 && lat != 0.0 && lng != 0.0 && address.trim().length > 0
             ) {
                 showLoading()
-                Log.d("insert_test", inActName.text.toString().trim());
-                Log.d("insert_test", inActPrice.text.toString().trim());
-                Log.d("insert_test", inActDesc.text.toString().trim());
-                Log.d("insert_test", type.toString());
-                Log.d("insert_test", lat.toString());
-                Log.d("insert_test", lng.toString());
-                Log.d("insert_test", address);
-                Log.d("insert_test", Helpers.getCurrentUser(it.context).username);
                 webServices.insertActivity(
                     inActName.text.toString().trim(),
                     type,
@@ -141,6 +142,7 @@ class InputDialogFragment : BottomSheetDialogFragment() {
                 ).subscribeBy(
                     onNext = {
                         if (it.success) {
+                            listener()
                             dismiss()
                         }
                         toast(it.message).show()
@@ -166,11 +168,6 @@ class InputDialogFragment : BottomSheetDialogFragment() {
     private fun hideLoading() {
         vLoadingBg.visibility = View.GONE
         vLoading.visibility = View.GONE
-    }
-
-    fun menuClick(view: View) {
-        listener(view.id)
-        dismiss()
     }
 
     fun getDate() {
@@ -220,7 +217,6 @@ class InputDialogFragment : BottomSheetDialogFragment() {
                 bInputTime.text = time
             }, hour, minute, true
         )
-        timePickerDialog.setTitle("Jam Buka")
         timePickerDialog.show()
     }
 
@@ -231,6 +227,24 @@ class InputDialogFragment : BottomSheetDialogFragment() {
             lng = data.getDoubleExtra(MapsPickerActivity.LNG_KEY, 0.0)
             address = data.getStringExtra(MapsPickerActivity.ADDRESS_KEY)
             bInputMap.text = address.replace(";", ", ")
+        } else if (requestCode == TypePickerActivity.TYPE_PICKER_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            type = data.getIntExtra(TypePickerActivity.ID_TYPE_KEY, 0)
+            val icon = data.getStringExtra(TypePickerActivity.ICON_KEY)
+            val name = data.getStringExtra(TypePickerActivity.TYPE_KEY)
+            bInputType.text = name
+            GlideApp.with(this).load(icon).into(object : CustomTarget<Drawable>() {
+                override fun onLoadCleared(placeholder: Drawable?) {
+                }
+
+                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                    val dsize = resources.getDimension(R.dimen.activity_type_icon_small_size).toInt()
+                    val d = BitmapDrawable(
+                        resources,
+                        Bitmap.createScaledBitmap((resource as BitmapDrawable).bitmap, dsize, dsize, true)
+                    )
+                    bInputType.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null)
+                }
+            })
         }
     }
 

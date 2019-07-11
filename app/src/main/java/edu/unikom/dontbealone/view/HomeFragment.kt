@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listMyActAdapter = ListActivityAdapter(listMyActivity, {
+        listMyActAdapter = ListActivityAdapter(activity!!, listMyActivity, {
             startActivity<DetailActivity>("id_activity" to it.id)
         })
         listMyAct.adapter = listMyActAdapter
@@ -48,11 +48,13 @@ class HomeFragment : Fragment() {
         listMyAct.isNestedScrollingEnabled = false
 
         listTypeAdapter = ListActivityTypeAdapter(listActivityType, {
+            startActivity<NearbyListActivity>("type" to it.id)
         })
         listTrendAct.adapter = listTypeAdapter
         listTrendAct.layoutManager = GridLayoutManager(view.context, 3)
         listTrendAct.isNestedScrollingEnabled = false
-//        loadMyActivity()
+
+        bMyActivity.setOnClickListener { (activity as MainActivity).goToMyAct() }
     }
 
     fun loadMyActivity() {

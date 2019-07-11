@@ -48,8 +48,8 @@
             android:maxLines="1"
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
-            android:textColor="#000"
-            android:textSize="13sp"
+            android:drawableTint="#5f6368"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputEditText
@@ -65,8 +65,8 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
             android:scrollbars="vertical"
-            android:textColor="#000"
-            android:textSize="13sp" />
+            android:drawableTint="#5f6368"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/bInputType"
@@ -78,14 +78,13 @@
             android:background="@drawable/bg_chip"
             android:drawableLeft="@drawable/ic_type"
             android:drawablePadding="8dp"
-            android:drawableTint="@color/colorPrimary"
             android:ellipsize="end"
             android:fontFamily="@font/nunito_regular"
             android:gravity="center"
             android:maxLines="1"
             android:padding="8dp"
             android:text="What kind of activity is this?"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/bInputMap"
@@ -104,7 +103,7 @@
             android:maxLines="1"
             android:padding="8dp"
             android:text="Where does the activity take place?"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/bInputTime"
@@ -123,7 +122,7 @@
             android:maxLines="1"
             android:padding="8dp"
             android:text="When does the activity start?"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <EditText
             android:id="@+id/inActPrice"
@@ -143,7 +142,7 @@
             android:padding="8dp"
             android:textColor="#727272"
             android:textColorHint="#727272"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"

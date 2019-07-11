@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/activityTypeImage"
-        android:layout_width="54dp"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginRight="16dp"
@@ -36,9 +36,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1"
+                android:ellipsize="end"
                 android:fontFamily="@font/nunito_regular"
+                android:maxLines="1"
                 android:textColor="#5f6368"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/tActivityAddress"
                 app:layout_constraintLeft_toLeftOf="@id/tActivityAddress"
@@ -65,49 +67,64 @@
             android:id="@+id/tActivityAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_regular"
-            android:textColor="#5f6368"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/activityTypeImage"
-            app:layout_constraintLeft_toRightOf="@id/activityTypeImage"
-            app:layout_constraintTop_toTopOf="@id/activityTypeImage"
-            tools:text="Moritz Futsal, Cimahi (5 km)" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:orientation="horizontal">
+            android:layout_marginRight="8dp"
+            android:background="@drawable/bg_chip"
+            android:drawableLeft="@drawable/ic_location_small"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/colorPrimary"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_regular"
+            android:maxLines="1"
+            android:paddingLeft="4dp"
+            android:paddingTop="2dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="2dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="21:00" />
 
-            <TextView
-                android:id="@+id/tActivityTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/bg_chip"
-                android:drawableLeft="@drawable/ic_calendar"
-                android:drawablePadding="4dp"
-                android:drawableTint="@color/colorPrimary"
-                android:fontFamily="@font/nunito_regular"
-                android:paddingLeft="4dp"
-                android:paddingTop="2dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="2dp"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="21:00" />
+        <TextView
+            android:id="@+id/tActivityTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/bg_chip"
+            android:drawableLeft="@drawable/ic_calendar"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/colorPrimary"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_regular"
+            android:maxLines="1"
+            android:paddingLeft="4dp"
+            android:paddingTop="2dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="2dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="21:00" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tActivityPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:background="@drawable/bg_chip"
                 android:drawableLeft="@drawable/ic_money"
                 android:drawablePadding="4dp"
                 android:drawableTint="@color/colorPrimary"
+                android:ellipsize="end"
                 android:fontFamily="@font/nunito_regular"
+                android:maxLines="1"
                 android:paddingLeft="4dp"
                 android:paddingTop="2dp"
                 android:paddingRight="4dp"
@@ -118,7 +135,29 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Rp 25.000" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tActivityStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/bg_chip"
+                android:drawableLeft="@drawable/ic_check_small"
+                android:drawablePadding="4dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/nunito_regular"
+                android:maxLines="1"
+                android:paddingLeft="4dp"
+                android:paddingTop="2dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="2dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Joined"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
