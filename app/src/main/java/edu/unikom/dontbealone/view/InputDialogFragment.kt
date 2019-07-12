@@ -22,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import edu.unikom.dontbealone.R
+import edu.unikom.dontbealone.model.DataActivity
 import edu.unikom.dontbealone.util.GlideApp
 import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
@@ -47,6 +48,13 @@ class InputDialogFragment : BottomSheetDialogFragment() {
             fragment.listener = listener
             return fragment
         }
+
+        fun newInstance(data: DataActivity?, listener: () -> Unit): InputDialogFragment {
+            var fragment = InputDialogFragment()
+            fragment.data = data
+            fragment.listener = listener
+            return fragment
+        }
     }
 
     private val webServices by lazy {
@@ -55,6 +63,7 @@ class InputDialogFragment : BottomSheetDialogFragment() {
 
     lateinit var listener: () -> Unit
 
+    var data: DataActivity? = null
     var type: Int = 0
     var lat: Double = 0.0
     var lng: Double = 0.0
@@ -126,16 +135,29 @@ class InputDialogFragment : BottomSheetDialogFragment() {
                 type != 0 && lat != 0.0 && lng != 0.0 && address.trim().length > 0
             ) {
                 showLoading()
-                webServices.insertActivity(
-                    inActName.text.toString().trim(),
-                    type,
-                    inActPrice.text.toString().trim(),
-                    inActDesc.text.toString().trim(),
-                    lat,
-                    lng,
-                    address,
-                    Helpers.getCurrentUser(it.context).username
-                ).subscribeOn(
+                val call = if (data == null)
+                    webServices.insertActivity(
+                        inActName.text.toString().trim(),
+                        type,
+                        inActPrice.text.toString().trim(),
+                        inActDesc.text.toString().trim(),
+                        lat,
+                        lng,
+                        address,
+                        Helpers.getCurrentUser(it.context).username
+                    ) else
+                    webServices.updateActivity(
+                        data!!.id,
+                        inActName.text.toString().trim(),
+                        type,
+                        inActPrice.text.toString().trim(),
+                        inActDesc.text.toString().trim(),
+                        lat,
+                        lng,
+                        address,
+                        Helpers.getCurrentUser(it.context).username
+                    )
+                call.subscribeOn(
                     Schedulers.io()
                 ).observeOn(
                     AndroidSchedulers.mainThread()
@@ -157,6 +179,38 @@ class InputDialogFragment : BottomSheetDialogFragment() {
                 )
             } else
                 toast("Some information required are missing, please complete the form")
+        }
+        tInputTitle.text = if (data != null) "Edit Activity" else "Create Activity"
+        tInputDesc.visibility = if (data != null) View.INVISIBLE else View.VISIBLE
+        setData()
+    }
+
+    private fun setData() {
+        if (data != null) {
+            type = data!!.type.id
+            address = data!!.address
+            time = data!!.time
+            lat = data!!.lat
+            lng = data!!.lng
+            inActName.setText(data?.name)
+            inActDesc.setText(data?.desc)
+            inActPrice.setText(data?.price)
+            bInputMap.text = data?.address?.replace(";", ", ")
+            bInputType.text = data?.type?.name
+            bInputTime.text = data?.time
+            GlideApp.with(this).load(data?.type?.icon).into(object : CustomTarget<Drawable>() {
+                override fun onLoadCleared(placeholder: Drawable?) {
+                }
+
+                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                    val dsize = resources.getDimension(R.dimen.activity_type_icon_small_size).toInt()
+                    val d = BitmapDrawable(
+                        resources,
+                        Bitmap.createScaledBitmap((resource as BitmapDrawable).bitmap, dsize, dsize, true)
+                    )
+                    bInputType.setCompoundDrawablesWithIntrinsicBounds(d, null, null, null)
+                }
+            })
         }
     }
 

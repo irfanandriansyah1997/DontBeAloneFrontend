@@ -65,7 +65,11 @@ interface WebServices {
     fun getUser(@Path("username") username: String): Observable<WebServiceResult<DataUser>>
 
     @GET("activity/get_activity")
-    fun getActivity(@Query("lat") lat: Double, @Query("lng") lng: Double, @Query("type") type: Int, @Query("distance") radius: Int): Observable<WebServiceResult<List<DataActivity>>>
+    fun getActivity(@Query("lat") lat: Double,
+                    @Query("lng") lng: Double,
+                    @Query("type") type: Int,
+                    @Query("distance") radius: Int,
+                    @Query("keyword") keyword: String?): Observable<WebServiceResult<List<DataActivity>>>
 
     @GET("activity/get_activity_by_user")
     fun getActivityByUser(@Query("username") username: String, @Query("limit") limit: Int): Observable<WebServiceResult<List<DataActivity>>>
@@ -98,7 +102,7 @@ interface WebServices {
     @FormUrlEncoded
     @POST("activity/update/{id}")
     fun updateActivity(
-        @Path("id") id: Int,
+        @Path("id") id: String,
         @Field("activity_name") name: String,
         @Field("activity_type") type: Int,
         @Field("price") price: String,

@@ -149,27 +149,10 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <LinearLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/listActUser"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/detailUserImage"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="16dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/nunito_regular"
-                            android:text="Syauqi Ilham"
-                            android:textSize="13sp" />
-
-                    </LinearLayout>
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 

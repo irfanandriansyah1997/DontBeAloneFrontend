@@ -25,8 +25,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProfileProfile"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/bg_img_default"
@@ -44,7 +44,19 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/nunito_regular"
                 android:textColor="#fff"
-                android:textSize="20sp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Syauqi Ilham Alfaraci" />
+
+            <TextView
+                android:id="@+id/txtProfileUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtProfileName"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/nunito_regular"
+                android:textColor="#fff"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 tools:text="Syauqi Ilham Alfaraci" />
 
@@ -162,6 +174,7 @@
                 android:padding="8dp"
                 android:textColor="#383838"
                 android:textSize="13sp"
+                android:visibility="gone"
                 tools:text="Syauqi Ilham" />
 
             <TextView
@@ -176,9 +189,11 @@
                 android:padding="8dp"
                 android:textColor="#383838"
                 android:textSize="13sp"
+                android:visibility="gone"
                 tools:text="cukil69" />
 
             <View
+                android:id="@+id/txtProfileAddressLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="16dp"
@@ -186,6 +201,7 @@
                 android:background="@color/colorGrey" />
 
             <TextView
+                android:id="@+id/txtProfileAddressTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
@@ -219,7 +235,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <fragment
                         android:id="@+id/mapProfileMap"

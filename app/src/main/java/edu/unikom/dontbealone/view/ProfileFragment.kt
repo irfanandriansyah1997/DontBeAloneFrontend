@@ -1,13 +1,17 @@
 package edu.unikom.dontbealone.view
 
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import edu.unikom.dontbealone.R
 import edu.unikom.dontbealone.model.DataUser
 import edu.unikom.dontbealone.util.Helpers
@@ -16,6 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_profile.*
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
 class ProfileFragment : Fragment() {
@@ -35,7 +40,13 @@ class ProfileFragment : Fragment() {
             popup.menuInflater.inflate(R.menu.menu_profile, popup.menu)
             popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
                 override fun onMenuItemClick(item: MenuItem): Boolean {
-                    Toast.makeText(view.context, "You Clicked : " + item.title, Toast.LENGTH_SHORT).show()
+                    if (item.itemId == R.id.menu_edit) {
+                        goToUpdateProfile(view.context)
+                    } else if (item.itemId == R.id.menu_logout) {
+                        Helpers.setCurrentuser(view.context, null)
+                        startActivity<LoginActivity>()
+                        activity?.finish()
+                    }
                     return true
                 }
             })
@@ -70,6 +81,7 @@ class ProfileFragment : Fragment() {
     }
 
     fun showProfile(data: DataUser) {
+        Helpers.setCurrentuser(context!!, data)
         txtProfileName.text = if (data.name != null && !data.name.equals("")) data.name else data.username
         txtProfileBio.text = data.bio
         txtProfileBioLine.visibility = if (data.bio != null && !data.bio.equals("")) View.VISIBLE else View.GONE
@@ -82,6 +94,32 @@ class ProfileFragment : Fragment() {
         txtProfileFacebook.text = data.name
         txtProfileTwitter.text = data.name
         txtProfileAddress.text = data.address
+        txtProfileAddressLine.visibility =
+            if (data.address != null && !data.address.equals("")) View.VISIBLE else View.GONE
+        txtProfileAddressTitle.visibility =
+            if (data.address != null && !data.address.equals("")) View.VISIBLE else View.GONE
+        txtProfileAddress.visibility = if (data.address != null && !data.address.equals("")) View.VISIBLE else View.GONE
+        Glide.with(context!!).load(data.photo).into(imgProfileProfile)
+        if (data.name == null || data.name.equals("") ||
+            data.address == null || data.address.equals("")
+        ) {
+            val builder = AlertDialog.Builder(context!!)
+            builder.setMessage("It looks like your profile missing some information, please update your profile to complete it!")
+                .setPositiveButton("Update Profile", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        goToUpdateProfile(context!!)
+                    }
+                }).setNegativeButton("Cancel", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        dialog?.cancel()
+                    }
+
+                }).show()
+        }
+    }
+
+    fun goToUpdateProfile(context: Context) {
+        startActivity<UpdateProfileActivity>("user" to Gson().toJson(Helpers.getCurrentUser(context)))
     }
 
 }

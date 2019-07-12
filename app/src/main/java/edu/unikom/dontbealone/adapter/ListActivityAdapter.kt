@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import edu.unikom.dontbealone.R
 import edu.unikom.dontbealone.model.DataActivity
 import edu.unikom.dontbealone.util.GlideApp
+import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_activity.*
@@ -44,17 +46,23 @@ class ListActivityAdapter(
         fun bind(activity: Activity, item: DataActivity, listener: (DataActivity) -> Unit) {
             tActivityName.text = item.name
             tActivityAddress.text = item.address.replace(";", ", ").split(",")[0]
-            tActivityTime.text = item.time
+            tActivityTime.text = item.time.substring(0, item.time.length - 3)
+            tActivityNotif.text = item.userPendingCount.toString()
+            tActivityNotif.visibility = if (Helpers.getCurrentUser(activity).username.equals(item.user?.username) && item.userPendingCount > 0) View.VISIBLE else View.GONE
             val price = item.price.toLong()
             tActivityPrice.text =
                 if (price > 0) "Rp " + NumberFormat.getInstance(Locale("ID")).format(price) else "FREE"
             tActivityDistance.text = String.format("%.1f", item.distance) + "km"
             tActivityDistance.visibility = if (item.distance != null) View.VISIBLE else View.GONE
             GlideApp.with(containerView).load(item.type.icon).into(activityTypeImage)
+            tActivityUserName.visibility = if (item.user != null) View.VISIBLE else View.GONE
+            tActivityUserPhoto.visibility = if (item.user != null) View.VISIBLE else View.GONE
+            tActivityUserName.text = if (item.user?.name != null) item.user?.name else item.user?.username
+            Glide.with(containerView).load(item.user?.photo).into(tActivityUserPhoto)
             tActivityStatus.visibility =
-                if (item.user != null && item.user?.status != null && item.user?.level.equals("user")) View.VISIBLE else View.GONE
-            if (item.user != null) {
-                val statusIcon = when (item.user!!.status) {
+                if (item.myUser != null && item.myUser?.status != null && item.myUser?.level.equals("user")) View.VISIBLE else View.GONE
+            if (item.myUser != null) {
+                val statusIcon = when (item.myUser!!.status) {
                     "Accepted" -> R.drawable.ic_check_small
                     "Pending" -> R.drawable.ic_clock_small
                     "Rejected" -> R.drawable.ic_close_small
@@ -66,7 +74,7 @@ class ListActivityAdapter(
                     null,
                     null
                 )
-                tActivityStatus.text = item.user!!.status
+                tActivityStatus.text = item.myUser!!.status
             }
 //            Glide.with(containerView).load(item.user.photo).into(tActivityUserImage)
             containerView.setOnClickListener { listener(item) }

@@ -31,6 +31,9 @@
         <activity
             android:name=".view.MainActivity"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".view.UpdateProfileActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".view.NearbyListActivity" />
         <activity android:name=".view.DetailActivity" />
         <activity android:name=".view.NotificationActivity" />

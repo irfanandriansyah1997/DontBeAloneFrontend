@@ -76,6 +76,7 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
         }
     }
 
+    var keyword: String? = null
     private var username: String? = null
     private var listActivity = mutableListOf<DataActivity>()
     private var lat: Double = 0.0
@@ -254,7 +255,7 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
         if (username != null)
             call = webServices.getActivityByUser(username!!, -1)
         else
-            call = webServices.getActivity(lat, lng, type, 50)
+            call = webServices.getActivity(lat, lng, type, 50, keyword)
         call.subscribeOn(
             Schedulers.io()
         ).observeOn(
@@ -265,6 +266,7 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
                     listActivity.clear()
                     listActivity.addAll(it.data!!)
                     listActAdapter.notifyDataSetChanged()
+                    tActNoData.visibility = if (listActivity.size > 0) View.GONE else View.VISIBLE
                 } else {
                     toast(it.message).show()
                 }

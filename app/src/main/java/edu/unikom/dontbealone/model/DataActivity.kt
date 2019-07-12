@@ -14,8 +14,12 @@ data class DataActivity(
     var type: DataActivityType,
     @SerializedName("activity_user")
     var user: DataUser?,
+    @SerializedName("activity_my_user")
+    var myUser: DataUser?,
     @SerializedName("activity_member")
     var member: List<DataUser>,
+    @SerializedName("activity_pending_user_count")
+    var userPendingCount: Int,
     @SerializedName("datetime")
     var time: String,
     @SerializedName("price")

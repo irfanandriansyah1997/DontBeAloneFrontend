@@ -19,11 +19,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        bLogout.setOnClickListener {
-//            Helpers.setCurrentuser(this, null)
-//            startActivity<LoginActivity>()
-//            finish()
-//        }
         menu = MenuDialogFragment.newInstance({
             when (it) {
                 R.id.bMenuProfile -> goToProfile()
@@ -133,5 +128,12 @@ class MainActivity : AppCompatActivity() {
             null,
             null
         )
+    }
+
+    override fun onBackPressed() {
+        if (menu.selectedMenuId != R.id.bMenuHome) {
+            goToHome()
+        } else
+            finish()
     }
 }

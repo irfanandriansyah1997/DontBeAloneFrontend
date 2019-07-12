@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/detailUserImage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bg_img_default" />
+
+    <TextView
+        android:id="@+id/detailUserName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/nunito_regular"
+        android:text="Syauqi Ilham"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/detailUserLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_admin"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/detailUserAccept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:tint="@color/colorPrimary"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_check"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/detailUserReject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_close"
+        tools:visibility="visible" />
+
+</LinearLayout>

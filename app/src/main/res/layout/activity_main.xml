@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="16dp"
+        android:visibility="gone"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/bBottomNavMenu"
         app:srcCompat="@drawable/ic_notif" />

@@ -28,13 +28,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tActivityName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:fontFamily="@font/nunito_regular"
@@ -48,66 +48,109 @@
                 tools:text="Futsal Friendly Match" />
 
             <TextView
+                android:id="@+id/tActivityNotif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_notif"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="#fff"
+                android:textSize="12sp"
+                tools:text="0" />
+
+            <TextView
                 android:id="@+id/tActivityDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/bg_chip"
                 android:fontFamily="@font/nunito_regular"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:text="1km" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tActivityAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/bg_chip"
-            android:drawableLeft="@drawable/ic_location_small"
-            android:drawablePadding="4dp"
-            android:drawableTint="@color/colorPrimary"
-            android:ellipsize="end"
-            android:fontFamily="@font/nunito_regular"
-            android:maxLines="1"
-            android:paddingLeft="4dp"
-            android:paddingTop="2dp"
-            android:paddingRight="4dp"
-            android:paddingBottom="2dp"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="21:00" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tActivityTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/bg_chip"
-            android:drawableLeft="@drawable/ic_calendar"
-            android:drawablePadding="4dp"
-            android:drawableTint="@color/colorPrimary"
-            android:ellipsize="end"
-            android:fontFamily="@font/nunito_regular"
-            android:maxLines="1"
-            android:paddingLeft="4dp"
-            android:paddingTop="2dp"
-            android:paddingRight="4dp"
-            android:paddingBottom="2dp"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="21:00" />
+            <TextView
+                android:id="@+id/tActivityAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/bg_chip"
+                android:drawableLeft="@drawable/ic_location_small"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/colorPrimary"
+                android:ellipsize="end"
+                android:fontFamily="@font/nunito_regular"
+                android:maxLines="1"
+                android:paddingLeft="4dp"
+                android:paddingTop="2dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="2dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="21:00" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tActivityTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/bg_chip"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/colorPrimary"
+                android:ellipsize="end"
+                android:fontFamily="@font/nunito_regular"
+                android:maxLines="1"
+                android:paddingLeft="4dp"
+                android:paddingTop="2dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="2dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="21:00" />
+
+            <TextView
+                android:id="@+id/tActivityStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_chip"
+                android:drawableLeft="@drawable/ic_check_small"
+                android:drawablePadding="4dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/nunito_regular"
+                android:maxLines="1"
+                android:paddingLeft="4dp"
+                android:paddingTop="2dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="2dp"
+                android:textSize="12sp"
+                tools:text="Joined" />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -135,27 +178,28 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Rp 25.000" />
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/tActivityUserPhoto"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="2dp"
+                android:layout_toLeftOf="@id/tActivityUserName"
+                android:background="@drawable/bg_img_default" />
+
             <TextView
-                android:id="@+id/tActivityStatus"
+                android:id="@+id/tActivityUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/bg_chip"
-                android:drawableLeft="@drawable/ic_check_small"
-                android:drawablePadding="4dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:ellipsize="end"
                 android:fontFamily="@font/nunito_regular"
                 android:maxLines="1"
                 android:paddingLeft="4dp"
-                android:paddingTop="2dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="2dp"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Joined"
-                android:layout_alignParentRight="true"/>
+                tools:text="Syauqi Ilham" />
 
         </RelativeLayout>
 

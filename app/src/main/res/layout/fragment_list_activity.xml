@@ -1,5 +1,6 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -24,7 +25,22 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listAct"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tActNoData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:lineHeight="24dp"
+            android:fontFamily="@font/nunito_regular"
+            android:text="There are no activity found:(\nCreate your own activity and take everyone out!"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
     </LinearLayout>
 

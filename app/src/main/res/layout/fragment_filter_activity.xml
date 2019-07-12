@@ -1,0 +1,141 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_menu">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tInputTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/nunito_regular"
+            android:text="Search Activity"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inActName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="8dp"
+            android:drawableRight="@drawable/ic_search"
+            android:drawableTint="@color/colorPrimary"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_regular"
+            android:hint="Search keyword"
+            android:inputType="text|textNoSuggestions"
+            android:maxLines="1"
+            android:textSize="14sp" />
+
+        <!--<TextView-->
+        <!--android:id="@+id/bInputType"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="24dp"-->
+        <!--android:layout_marginRight="24dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:background="@drawable/bg_chip"-->
+        <!--android:drawableLeft="@drawable/ic_type"-->
+        <!--android:drawablePadding="8dp"-->
+        <!--android:ellipsize="end"-->
+        <!--android:fontFamily="@font/nunito_regular"-->
+        <!--android:gravity="center"-->
+        <!--android:maxLines="1"-->
+        <!--android:padding="8dp"-->
+        <!--android:text="What kind of activity do you prefer?"-->
+        <!--android:textSize="13sp" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/bInputTime"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="24dp"-->
+        <!--android:layout_marginRight="24dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:background="@drawable/bg_chip"-->
+        <!--android:drawableLeft="@drawable/ic_calendar"-->
+        <!--android:drawablePadding="8dp"-->
+        <!--android:drawableTint="@color/colorPrimary"-->
+        <!--android:ellipsize="end"-->
+        <!--android:fontFamily="@font/nunito_regular"-->
+        <!--android:gravity="center"-->
+        <!--android:maxLines="1"-->
+        <!--android:padding="8dp"-->
+        <!--android:text="When do you want the activity to start?"-->
+        <!--android:textSize="13sp" />-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/bInputCancel"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_close_circle" />
+
+            <Button
+                android:id="@+id/bInputSave"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/nunito_regular"
+                android:text="Search"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/vLoadingBg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_loading_dialog"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/vLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

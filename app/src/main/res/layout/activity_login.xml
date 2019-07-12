@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="Don't have an account? No worry, click here!"
+                    android:text="@string/label_signup"
                     android:textSize="12sp" />
 
                 <com.google.android.material.textfield.TextInputEditText

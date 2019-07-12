@@ -108,21 +108,24 @@ class LoginActivity : AppCompatActivity() {
             startActivityForResult(signInIntent, 6969)
         }
         bLogin.setOnClickListener {
-            showLoading()
-            webServices.login(inUsername.text.toString().trim(), inPassword.text.toString().trim())
-                .subscribeOn(Schedulers.io()).observeOn(
-                    AndroidSchedulers.mainThread()
-                ).subscribeBy(
-                    onNext = {
-                        handleLogin(it)
-                    },
-                    onError = {
-                        it.printStackTrace()
-                        toast("An error has occured, please contact the administrator").show()
-                        hideLoading()
-                    },
-                    onComplete = { }
-                )
+            if (inUsername.text.toString().trim().length > 0 && inPassword.text.toString().trim().length > 0) {
+                showLoading()
+                webServices.login(inUsername.text.toString().trim(), inPassword.text.toString().trim())
+                    .subscribeOn(Schedulers.io()).observeOn(
+                        AndroidSchedulers.mainThread()
+                    ).subscribeBy(
+                        onNext = {
+                            handleLogin(it)
+                        },
+                        onError = {
+                            it.printStackTrace()
+                            toast("An error has occured, please contact the administrator").show()
+                            hideLoading()
+                        },
+                        onComplete = { }
+                    )
+            } else
+                toast("Please complete the login form").show()
         }
         tRegister.setOnClickListener {
             startActivity<RegisterActivity>()

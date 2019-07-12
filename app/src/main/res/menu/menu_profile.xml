@@ -5,10 +5,10 @@
         android:id="@+id/menu_edit"
         android:title="Edit Profile" />
     <item
-        android:id="@+id/menu_cancel"
+        android:id="@+id/menu_setting"
         android:title="Settings" />
     <item
-        android:id="@+id/menu_message"
+        android:id="@+id/menu_logout"
         android:title="Logout" />
 
 </menu>
