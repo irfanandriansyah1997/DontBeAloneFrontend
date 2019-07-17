@@ -76,7 +76,7 @@ class MapsPickerActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiCli
                 type = b.getString("type")
         }
         checkPermission()
-        Places.initialize(applicationContext, "AIzaSyBOJUJuo7DOkyDNFNo7b_4__8T0xcWDFzk")
+        Places.initialize(applicationContext, "AIzaSyBYve-A_4IEAYQpifbA84qrRJHZqqIr61s")
         placesClient = Places.createClient(this)
         map.onCreate(savedInstanceState)
         map.onResume()

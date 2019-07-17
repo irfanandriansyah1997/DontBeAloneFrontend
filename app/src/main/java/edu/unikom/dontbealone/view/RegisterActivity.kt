@@ -77,6 +77,7 @@ class RegisterActivity : AppCompatActivity() {
                                 Helpers.setCurrentuser(this, it.data)
                                 startActivity(intentFor<MainActivity>().newTask().clearTask())
                                 finish()
+                                toast("User Register Success").show()
                             } else {
                                 toast(it.message).show()
                             }

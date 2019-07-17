@@ -1,0 +1,104 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <View
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
+        android:alpha="0.3"
+        android:background="@color/colorGrey"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_marginTop="4dp"
+            android:alpha="0.3"
+            android:background="@color/colorGrey" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="160dp"
+            android:alpha="0.3"
+            android:background="@color/colorGrey"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="64dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
+                android:alpha="0.3"
+                android:background="@color/colorGrey"/>
+
+            <View
+                android:layout_width="48dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="4dp"
+                android:alpha="0.3"
+                android:background="@color/colorGrey"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="48dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
+                android:alpha="0.3"
+                android:background="@color/colorGrey" />
+
+            <View
+                android:layout_width="64dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="4dp"
+                android:alpha="0.3"
+                android:background="@color/colorGrey"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:alpha="0.3"
+            android:background="@color/colorGrey"/>
+
+        <!--<de.hdodenhof.circleimageview.CircleImageView-->
+        <!--android:id="@+id/tActivityUserImage"-->
+        <!--android:layout_width="16dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@id/tActivityTimeBg"-->
+        <!--app:layout_constraintDimensionRatio="w, 1:1"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@id/tActivityTimeBg"-->
+        <!--tools:src="@mipmap/ic_launcher" />-->
+
+    </LinearLayout>
+
+</LinearLayout>

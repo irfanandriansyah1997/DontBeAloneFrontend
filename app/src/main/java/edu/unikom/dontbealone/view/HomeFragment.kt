@@ -58,6 +58,7 @@ class HomeFragment : Fragment() {
     }
 
     fun loadMyActivity() {
+        listMyAct.showShimmerAdapter()
         webServices.getActivityByUser(Helpers.getCurrentUser(context).username, 2).subscribeOn(
             Schedulers.io()
         ).observeOn(
@@ -71,9 +72,11 @@ class HomeFragment : Fragment() {
                 } else {
                     toast(it.message).show()
                 }
+                listMyAct.hideShimmerAdapter()
             },
             onError = {
                 it.printStackTrace()
+                listMyAct.hideShimmerAdapter()
                 toast("An error has occured, please contact the administrator").show()
             },
             onComplete = { }
@@ -81,6 +84,7 @@ class HomeFragment : Fragment() {
     }
 
     fun loadTrendAct() {
+        listTrendAct.showShimmerAdapter()
         webServices.getActivityType().subscribeOn(
             Schedulers.io()
         ).observeOn(
@@ -94,9 +98,11 @@ class HomeFragment : Fragment() {
                 } else {
                     toast(it.message).show()
                 }
+                listTrendAct.hideShimmerAdapter()
             },
             onError = {
                 it.printStackTrace()
+                listTrendAct.hideShimmerAdapter()
                 toast("An error has occured, please contact the administrator").show()
             },
             onComplete = { }

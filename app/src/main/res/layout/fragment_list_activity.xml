@@ -22,11 +22,12 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
             android:id="@+id/listAct"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:visibility="gone" />
+            android:layout_height="match_parent"
+            app:shimmer_demo_layout="@layout/item_activity_demo"
+            app:shimmer_demo_layout_manager_type="linear_vertical" />
 
         <TextView
             android:id="@+id/tActNoData"
@@ -34,13 +35,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
+            android:fontFamily="@font/nunito_regular"
             android:gravity="center"
             android:lineHeight="24dp"
-            android:fontFamily="@font/nunito_regular"
             android:text="There are no activity found:(\nCreate your own activity and take everyone out!"
             android:textSize="14sp"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
     </LinearLayout>
 

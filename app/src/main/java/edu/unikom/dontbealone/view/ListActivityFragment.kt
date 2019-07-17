@@ -251,6 +251,7 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
 
     fun loadActivity() {
         Log.d("gps_test", "masuk load act")
+        listAct.showShimmerAdapter()
         val call: Observable<WebServiceResult<List<DataActivity>>>
         if (username != null)
             call = webServices.getActivityByUser(username!!, -1)
@@ -271,9 +272,11 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
                     toast(it.message).show()
                 }
                 listener(true)
+                listAct.hideShimmerAdapter()
             },
             onError = {
                 listener(true)
+                listAct.hideShimmerAdapter()
                 it.printStackTrace()
                 toast("An error has occured, please contact the administrator").show()
             },
