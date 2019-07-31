@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/detailUserImage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="16dp"
+        android:alpha="0.3"
+        android:background="@color/colorGrey" />
+
+    <View
+        android:id="@+id/detailUserName"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:layout_weight="1"
+        android:alpha="0.3"
+        android:background="@color/colorGrey" />
+
+</LinearLayout>

@@ -20,6 +20,7 @@ import java.util.*
 class ListActivityAdapter(
     private val activity: Activity,
     private val items: List<DataActivity>,
+    private val isMyActivity: Boolean,
     private val clickListener: (DataActivity) -> Unit
 ) :
     RecyclerView.Adapter<ListActivityAdapter.DataActivityListViewHolder>() {
@@ -33,7 +34,7 @@ class ListActivityAdapter(
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: DataActivityListViewHolder, position: Int) {
-        holder.bind(activity, items[position], clickListener)
+        holder.bind(activity, items[position], isMyActivity, clickListener)
     }
 
     class DataActivityListViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
@@ -43,12 +44,10 @@ class ListActivityAdapter(
             WebServices.create()
         }
 
-        fun bind(activity: Activity, item: DataActivity, listener: (DataActivity) -> Unit) {
+        fun bind(activity: Activity, item: DataActivity, isMyActivity: Boolean, listener: (DataActivity) -> Unit) {
             tActivityName.text = item.name
             tActivityAddress.text = item.address.replace(";", ", ").split(",")[0]
             tActivityTime.text = item.time.substring(0, item.time.length - 3)
-            tActivityNotif.text = item.userPendingCount.toString()
-            tActivityNotif.visibility = if (Helpers.getCurrentUser(activity).username.equals(item.user?.username) && item.userPendingCount > 0) View.VISIBLE else View.GONE
             val price = item.price.toLong()
             tActivityPrice.text =
                 if (price > 0) "Rp " + NumberFormat.getInstance(Locale("ID")).format(price) else "FREE"
@@ -57,24 +56,30 @@ class ListActivityAdapter(
             GlideApp.with(containerView).load(item.type.icon).into(activityTypeImage)
             tActivityUserName.visibility = if (item.user != null) View.VISIBLE else View.GONE
             tActivityUserPhoto.visibility = if (item.user != null) View.VISIBLE else View.GONE
-            tActivityUserName.text = if (item.user?.name != null) item.user?.name else item.user?.username
-            Glide.with(containerView).load(item.user?.photo).into(tActivityUserPhoto)
-            tActivityStatus.visibility =
-                if (item.myUser != null && item.myUser?.status != null && item.myUser?.level.equals("user")) View.VISIBLE else View.GONE
-            if (item.myUser != null) {
-                val statusIcon = when (item.myUser!!.status) {
-                    "Accepted" -> R.drawable.ic_check_small
-                    "Pending" -> R.drawable.ic_clock_small
-                    "Rejected" -> R.drawable.ic_close_small
-                    else -> R.drawable.ic_clock_small
+            tActivityUserName.text =
+                if (item.user?.name != null && !item.user?.name.equals("")) item.user?.name!!.split(" ")[0] else item.user?.username
+            Glide.with(containerView).load(item.user?.photo).error(R.drawable.ic_user).into(tActivityUserPhoto)
+            if (isMyActivity) {
+                tActivityNotif.text = item.userPendingCount.toString()
+                tActivityNotif.visibility =
+                    if (Helpers.getCurrentUser(activity).username.equals(item.user?.username) && item.userPendingCount > 0) View.VISIBLE else View.GONE
+                tActivityStatus.visibility =
+                    if (item.myUser != null && item.myUser?.status != null && item.myUser?.level.equals("user")) View.VISIBLE else View.GONE
+                if (item.myUser != null) {
+                    val statusIcon = when (item.myUser!!.status) {
+                        "Accepted" -> R.drawable.ic_check_small
+                        "Pending" -> R.drawable.ic_clock_small
+                        "Rejected" -> R.drawable.ic_close_small
+                        else -> R.drawable.ic_clock_small
+                    }
+                    tActivityStatus.setCompoundDrawablesWithIntrinsicBounds(
+                        tActivityStatus.resources.getDrawable(statusIcon),
+                        null,
+                        null,
+                        null
+                    )
+                    tActivityStatus.text = item.myUser!!.status
                 }
-                tActivityStatus.setCompoundDrawablesWithIntrinsicBounds(
-                    tActivityStatus.resources.getDrawable(statusIcon),
-                    null,
-                    null,
-                    null
-                )
-                tActivityStatus.text = item.myUser!!.status
             }
 //            Glide.with(containerView).load(item.user.photo).into(tActivityUserImage)
             containerView.setOnClickListener { listener(item) }

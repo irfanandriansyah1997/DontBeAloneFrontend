@@ -1,37 +1,40 @@
-package edu.unikom.dontbealone.view
+package edu.unikom.dontbealone.view.home
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import androidx.annotation.NonNull
+import android.widget.TextView
 import androidx.annotation.Nullable
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import edu.unikom.dontbealone.R
-import kotlinx.android.synthetic.main.fragment_input.*
+import edu.unikom.dontbealone.util.Helpers
+import kotlinx.android.synthetic.main.fragment_menu.*
+import org.jetbrains.anko.textColor
 
 
 /**
  * Created by Syauqi Ilham on 7/8/2019.
  */
-class SearchActivityDialogFragment : BottomSheetDialogFragment() {
+class MenuDialogFragment : BottomSheetDialogFragment() {
 
     companion object {
-        fun newInstance(listener: (menuId: Int) -> Unit): SearchActivityDialogFragment {
-            var fragment = SearchActivityDialogFragment()
+        fun newInstance(listener: (menuId: Int) -> Unit): MenuDialogFragment {
+            var fragment = MenuDialogFragment()
             fragment.listener = listener
             return fragment
         }
     }
 
     lateinit var listener: (menuId: Int) -> Unit
+    var selectedMenuId: Int = R.id.bMenuHome
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isCancelable = false
         setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
     }
 
@@ -41,9 +44,8 @@ class SearchActivityDialogFragment : BottomSheetDialogFragment() {
         @Nullable container: ViewGroup?,
         @Nullable savedInstanceState: Bundle?
     ): View? {
-        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         return inflater.inflate(
-            R.layout.fragment_search_activity, container,
+            R.layout.fragment_menu, container,
             false
         )
     }
@@ -56,22 +58,29 @@ class SearchActivityDialogFragment : BottomSheetDialogFragment() {
             val behavior = BottomSheetBehavior.from<View>(bottomSheet)
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
             behavior.peekHeight = 0
-            behavior.isHideable = false
-
-            behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(@NonNull bottomSheet: View, newState: Int) {
-                    if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                    }
-                }
-
-                override fun onSlide(@NonNull bottomSheet: View, slideOffset: Float) {}
-            })
+            behavior.isHideable = true
         }
-        bInputCancel.setOnClickListener { dismiss() }
+        val user = Helpers.getCurrentUser(view.context)
+        txtMenuName.text = if (!user.name.equals("")) user.name else user.username
+        txtMenuEmail.text = user.email
+        Glide.with(this).load(user.photo).placeholder(R.drawable.bg_img_default).into(imgMenuProfile)
+        bMenuProfile.setOnClickListener { menuClick(it) }
+        bMenuHome.setOnClickListener { menuClick(it) }
+        bMenuFriend.setOnClickListener { menuClick(it) }
+        bMenuMyAct.setOnClickListener { menuClick(it) }
+        bMenuMessage.setOnClickListener { menuClick(it) }
+        if (selectedMenuId != R.id.bMenuProfile) {
+            val v = view.findViewById<TextView>(selectedMenuId)
+            if (v is TextView) {
+                v.textColor = resources.getColor(R.color.colorPrimary)
+//                v.compoundDrawableTintList =
+//                    ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
+            }
+        }
     }
 
     fun menuClick(view: View) {
+        selectedMenuId = view.id
         listener(view.id)
         dismiss()
     }

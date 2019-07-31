@@ -1,0 +1,147 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iconChat"
+            android:layout_width="32dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintBottom_toTopOf="@id/titleBorder"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titleChat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/nunito_regular"
+            android:padding="16dp"
+            android:text="My Activity"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/titleBorder"
+            app:layout_constraintLeft_toRightOf="@id/iconChat"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/titleBorder"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"
+            app:layout_constraintTop_toBottomOf="@id/titleChat" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listChat"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#fafafa"
+            android:clipToPadding="false"
+            android:paddingLeft="8dp"
+            android:paddingTop="16dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="16dp"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavBorder"
+            app:layout_constraintTop_toBottomOf="@id/titleBorder" />
+
+        <Button
+            android:id="@+id/bApplyFilter"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_button"
+            android:drawableLeft="@drawable/ic_filter"
+            android:drawablePadding="8dp"
+            android:drawableTint="#fff"
+            android:fontFamily="@font/nunito_regular"
+            android:paddingLeft="16dp"
+            android:paddingRight="24dp"
+            android:text="Apply Filter"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/bottomNavBorder"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bottomNavBorder" />
+
+        <View
+            android:id="@+id/bottomNavBorder"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"
+            app:layout_constraintBottom_toTopOf="@id/bBottomNavBack" />
+
+        <ImageView
+            android:id="@+id/bBottomNavBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:srcCompat="@drawable/ic_back" />
+
+        <EditText
+            android:id="@+id/inChatMessage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="Type a message..."
+            android:lineSpacingExtra="1dp"
+            android:maxHeight="100dp"
+            android:padding="16dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/bBottomNavBack"
+            app:layout_constraintRight_toLeftOf="@id/bChatSend"
+            app:layout_constraintTop_toTopOf="@id/bBottomNavBack" />
+
+        <ImageView
+            android:id="@+id/bChatSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bBottomNavBack"
+            app:srcCompat="@drawable/ic_send_primary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_regular"
+        android:gravity="center"
+        android:text="Finding nearby activities..."
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.20" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

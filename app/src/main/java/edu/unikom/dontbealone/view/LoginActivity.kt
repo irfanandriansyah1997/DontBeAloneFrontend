@@ -1,8 +1,6 @@
 package edu.unikom.dontbealone.view
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -18,25 +16,20 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.gson.Gson
 import com.twitter.sdk.android.core.*
+import com.twitter.sdk.android.core.identity.TwitterAuthClient
+import com.twitter.sdk.android.core.models.User
 import edu.unikom.dontbealone.model.DataUser
 import edu.unikom.dontbealone.model.WebServiceResult
+import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
+import edu.unikom.dontbealone.view.home.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
-import org.json.JSONObject
-import com.twitter.sdk.android.core.identity.TwitterAuthClient
-import com.twitter.sdk.android.core.models.User
-import edu.unikom.dontbealone.util.Helpers
-import kotlinx.android.synthetic.main.activity_login.inPassword
-import kotlinx.android.synthetic.main.activity_login.inUsername
-import kotlinx.android.synthetic.main.activity_login.vLoading
-import kotlinx.android.synthetic.main.activity_login.vLoadingBg
-import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.*
+import org.json.JSONObject
 
 
 class LoginActivity : AppCompatActivity() {
@@ -44,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
     private lateinit var googleSigninClient: GoogleSignInClient
     private lateinit var twitterAuthClient: TwitterAuthClient
+//    private lateinit var firebaseAuth: FirebaseAuth
 
     private val webServices by lazy {
         WebServices.create()
@@ -53,16 +47,23 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val config = TwitterConfig.Builder(this)
             .logger(DefaultLogger(Log.DEBUG))
-            .twitterAuthConfig(TwitterAuthConfig("vXjxQqF7MIU9JAoiEYEaT7B5f", "jMNMdFPZSNeCFbPF3oe0YC7jOVX71YlmK9NQi5FqFIpTVbQ2zv"))
+            .twitterAuthConfig(
+                TwitterAuthConfig(
+                    "vXjxQqF7MIU9JAoiEYEaT7B5f",
+                    "jMNMdFPZSNeCFbPF3oe0YC7jOVX71YlmK9NQi5FqFIpTVbQ2zv"
+                )
+            )
             .debug(true)
-            .build();
+            .build()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("946753097645-dnnh0k7k08iqh9e0elpp0urd20hal0hv.apps.googleusercontent.com")
             .requestEmail()
             .build()
         googleSigninClient = GoogleSignIn.getClient(this, gso)
         callbackManager = CallbackManager.Factory.create()
-        Twitter.initialize(this);
+        Twitter.initialize(this)
         setContentView(edu.unikom.dontbealone.R.layout.activity_login)
+//        firebaseAuth = FirebaseAuth.getInstance()
         twitterAuthClient = TwitterAuthClient()
         LoginManager.getInstance().registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
@@ -137,7 +138,7 @@ class LoginActivity : AppCompatActivity() {
         val id = it.getString("id")
         val email = it.getString("email")
         val name = it.getString("name")
-        val photo = "http://graph.facebook.com/$id/picture?type=large";
+        val photo = "http://graph.facebook.com/$id/picture?type=large"
         webServices.isUsernameExists(it.getString("email")).subscribeOn(Schedulers.io()).observeOn(
             AndroidSchedulers.mainThread()
         ).subscribeBy(
@@ -173,6 +174,17 @@ class LoginActivity : AppCompatActivity() {
     private fun loginGp(account: GoogleSignInAccount?) {
         if (account != null) {
             showLoading()
+//            val credential = GoogleAuthProvider.getCredential(account.idToken!!, null)
+//            firebaseAuth.signInWithCredential(credential)
+//                .addOnCompleteListener(this) { task ->
+//                    if (task.isSuccessful) {
+//
+//                    } else {
+//                        Log.w("login_test", "signInWithCredential:failure", task.exception)
+//                        toast("An error has occured, please contact the administrator").show()
+//                        hideLoading()
+//                    }
+//                }
             val id = account.id!!
             val email = account.email!!
             val name = account.displayName!!
@@ -196,7 +208,12 @@ class LoginActivity : AppCompatActivity() {
                             onComplete = { }
                         )
                     } else {
-                        startActivity<RegisterActivity>("email" to email, "gp_id" to id, "name" to name, "photo" to photo)
+                        startActivity<RegisterActivity>(
+                            "email" to email,
+                            "gp_id" to id,
+                            "name" to name,
+                            "photo" to photo
+                        )
                         hideLoading()
                     }
                 },
@@ -212,68 +229,78 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginTw(session: TwitterSession) {
         showLoading()
-        val authToken = session.getAuthToken()
+        val authToken = session.authToken
         val token = authToken.token
         val secret = authToken.secret
         val id = session.userId
         val uname = session.userName
-        TwitterCore.getInstance().apiClient.accountService.verifyCredentials(false, false, true).enqueue(object: Callback<User>() {
-            override fun success(result: Result<User>?) {
-                if (result != null) {
-                    val name = result.data.name
-                    val email = result.data.email
-                    val photo = result.data.profileImageUrl.replace("_normal", "")
-                    webServices.isUsernameExists(email).subscribeOn(Schedulers.io()).observeOn(
-                        AndroidSchedulers.mainThread()
-                    ).subscribeBy(
-                        onNext = {
-                            if (it.data!!) {
-                                webServices.loginTw(email, id.toString()).subscribeOn(Schedulers.io()).observeOn(
-                                    AndroidSchedulers.mainThread()
-                                ).subscribeBy(
-                                    onNext = {
-                                        handleLogin(it)
-                                    },
-                                    onError = {
-                                        it.printStackTrace()
-                                        toast("An error has occured, please contact the administrator").show()
-                                        hideLoading()
-                                    },
-                                    onComplete = { }
-                                )
-                            } else {
-                                startActivity<RegisterActivity>(
-                                    "email" to email,
-                                    "tw_id" to id.toString(),
-                                    "name" to name,
-                                    "uname" to uname,
-                                    "photo" to photo
-                                )
+        TwitterCore.getInstance().apiClient.accountService.verifyCredentials(false, false, true)
+            .enqueue(object : Callback<User>() {
+                override fun success(result: Result<User>?) {
+                    if (result != null) {
+                        val name = result.data.name
+                        val email = result.data.email
+                        val photo = result.data.profileImageUrl.replace("_normal", "")
+                        webServices.isUsernameExists(email).subscribeOn(Schedulers.io()).observeOn(
+                            AndroidSchedulers.mainThread()
+                        ).subscribeBy(
+                            onNext = {
+                                if (it.data!!) {
+                                    webServices.loginTw(email, id.toString()).subscribeOn(Schedulers.io()).observeOn(
+                                        AndroidSchedulers.mainThread()
+                                    ).subscribeBy(
+                                        onNext = {
+                                            handleLogin(it)
+                                        },
+                                        onError = {
+                                            it.printStackTrace()
+                                            toast("An error has occured, please contact the administrator").show()
+                                            hideLoading()
+                                        },
+                                        onComplete = { }
+                                    )
+                                } else {
+                                    startActivity<RegisterActivity>(
+                                        "email" to email,
+                                        "tw_id" to id.toString(),
+                                        "name" to name,
+                                        "uname" to uname,
+                                        "photo" to photo
+                                    )
+                                    hideLoading()
+                                }
+                            },
+                            onError = {
+                                it.printStackTrace()
+                                toast("An error has occured, please contact the administrator").show()
                                 hideLoading()
-                            }
-                        },
-                        onError = {
-                            it.printStackTrace()
-                            toast("An error has occured, please contact the administrator").show()
-                            hideLoading()
-                        },
-                        onComplete = { }
-                    )
+                            },
+                            onComplete = { }
+                        )
+                    }
                 }
-            }
 
-            override fun failure(exception: TwitterException?) {
-                exception?.printStackTrace()
-                hideLoading()
-            }
-        })
+                override fun failure(exception: TwitterException?) {
+                    exception?.printStackTrace()
+                    hideLoading()
+                }
+            })
     }
 
     private fun handleLogin(it: WebServiceResult<DataUser>) {
         if (it.success) {
-            Helpers.setCurrentuser(this, it.data)
+            val user = it.data
+//            firebaseAuth.signInWithEmailAndPassword(user!!.email, inPassword.text.toString())
+//                .addOnSuccessListener {
+            Helpers.setCurrentuser(this, user)
             startActivity(intentFor<MainActivity>().newTask().clearTask())
             finish()
+//                }
+//                .addOnFailureListener {
+//                    it.printStackTrace()
+//                    toast("An error has occured, please contact the administrator").show()
+//                    hideLoading()
+//                }
         } else {
             toast(it.message).show()
         }
@@ -283,13 +310,19 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 6969 && resultCode != 0) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            val account = task.getResult(ApiException::class.java)
-            loginGp(account)
+            var account: GoogleSignInAccount? = null
+            try {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+                account = task.getResult(ApiException::class.java)
+            } catch (e: ApiException) {
+                e.printStackTrace()
+            } finally {
+                loginGp(account)
+            }
         } else if (callbackManager.onActivityResult(requestCode, resultCode, data)) {
             return
         } else
-            twitterAuthClient.onActivityResult(requestCode, resultCode, data);
+            twitterAuthClient.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun showLoading() {

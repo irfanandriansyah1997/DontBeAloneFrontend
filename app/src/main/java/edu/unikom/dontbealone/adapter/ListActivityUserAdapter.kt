@@ -1,5 +1,6 @@
 package edu.unikom.dontbealone.adapter
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import edu.unikom.dontbealone.R
 import edu.unikom.dontbealone.model.DataUser
+import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_activity_user.*
@@ -40,9 +42,18 @@ class ListActivityUserAdapter(
             WebServices.create()
         }
 
-        fun bind(isAdmin: Boolean, item: DataUser, listener: (DataUser) -> Unit, grantClickListener: (String, Int) -> Unit) {
+        fun bind(
+            isAdmin: Boolean,
+            item: DataUser,
+            listener: (DataUser) -> Unit,
+            grantClickListener: (String, Int) -> Unit
+        ) {
             detailUserName.text = if (item.name != null && !item.name.equals("")) item.name else item.username
-            Glide.with(containerView).load(item.photo).into(detailUserImage)
+            detailUserName.setTypeface(
+                detailUserName.typeface,
+                if (item.username.equals(Helpers.getCurrentUser(detailUserName.context).username)) Typeface.BOLD else Typeface.NORMAL
+            )
+            Glide.with(containerView).load(item.photo).error(R.drawable.ic_user).into(detailUserImage)
             detailUserLevel.visibility =
                 if (item.status.equals("Accepted") && item.level.equals("admin")) View.VISIBLE else View.GONE
             detailUserAccept.visibility = if (isAdmin && item.status.equals("Pending")) View.VISIBLE else View.GONE

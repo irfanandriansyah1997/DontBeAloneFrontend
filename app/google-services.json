@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "946753097645",
+    "firebase_url": "https://dont-be-alone-246305.firebaseio.com",
+    "project_id": "dont-be-alone-246305",
+    "storage_bucket": "dont-be-alone-246305.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946753097645:android:44ab75d6125d0e74",
+        "android_client_info": {
+          "package_name": "edu.unikom.dontbealone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946753097645-4n4p9u3hc5tqmou28fet4vc9f4cslovn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.unikom.dontbealone",
+            "certificate_hash": "5b600fdd7ad63ec4e4ba6d2e1110502215fd96fa"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCur7pVY5pQf5LWRuJDC-D72IgdsajgEJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946753097645-dnnh0k7k08iqh9e0elpp0urd20hal0hv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

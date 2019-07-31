@@ -1,4 +1,4 @@
-package edu.unikom.dontbealone.view
+package edu.unikom.dontbealone.view.activity
 
 import android.Manifest
 import android.app.AlarmManager
@@ -25,6 +25,7 @@ import edu.unikom.dontbealone.R
 import edu.unikom.dontbealone.adapter.ListActivityAdapter
 import edu.unikom.dontbealone.model.DataActivity
 import edu.unikom.dontbealone.model.WebServiceResult
+import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -77,11 +78,11 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
     }
 
     var keyword: String? = null
+    var type: Int = -1
     private var username: String? = null
     private var listActivity = mutableListOf<DataActivity>()
     private var lat: Double = 0.0
     private var lng: Double = 0.0
-    private var type: Int = -1
     private var locationRequest: LocationRequest? = null
     private var googleApiClient: GoogleApiClient? = null
     private var listener: (loaded: Boolean) -> Unit = {}
@@ -96,8 +97,9 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
             return ListActivityFragment()
         }
 
-        fun newInstance(username: String): ListActivityFragment {
+        fun newInstance(keyword: String?, username: String): ListActivityFragment {
             val fragment = ListActivityFragment()
+            fragment.keyword = keyword
             fragment.username = username
             return fragment
         }
@@ -122,10 +124,20 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        titleListAct.text = if (username != null) "My Activity" else "Nearby Activity"
-        listActAdapter = ListActivityAdapter(activity!!, listActivity, {
-            startActivity<DetailActivity>("id_activity" to it.id)
-        })
+        var title = if (username != null) {
+            if (Helpers.getCurrentUser(view.context).username.equals(username))
+                "My Activity"
+            else
+                username + "'s Activity"
+        } else "Nearby Activity"
+        titleListAct.text = title
+        listActAdapter = ListActivityAdapter(
+            activity!!,
+            listActivity,
+            Helpers.getCurrentUser(view.context).username.equals(username),
+            {
+                startActivity<DetailActivity>("id_activity" to it.id)
+            })
         listAct.adapter = listActAdapter
         listAct.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL, false)
         listAct.isNestedScrollingEnabled = false
@@ -218,6 +230,7 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
     private fun createLocationRequest() {
         Log.d("gps_test", "masuk create request")
         locationRequest = LocationRequest()
+        locationRequest!!.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest!!.interval = AlarmManager.INTERVAL_HOUR
         locationRequest!!.fastestInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES
     }
@@ -244,8 +257,17 @@ class ListActivityFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
                 checkGPS(context!!)
                 createLocationRequest()
             }
-            if (username != null || (lat != 0.0 && lng != 0.0))
+            if (listAct != null && username != null || (lat != 0.0 && lng != 0.0))
                 loadActivity()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (googleApiClient != null) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this)
+            if (googleApiClient!!.isConnected)
+                googleApiClient!!.disconnect()
         }
     }
 

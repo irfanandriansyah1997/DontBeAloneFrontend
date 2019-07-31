@@ -5,4 +5,6 @@
     <dimen name="autocomplete_button_margin_x_size">8dp</dimen>
     <dimen name="autocomplete_button_margin_y_size">0dp</dimen>
     <dimen name="activity_type_icon_small_size">16dp</dimen>
+    <dimen name="map_padding_x">16dp</dimen>
+    <dimen name="map_padding_y">24dp</dimen>
 </resources>

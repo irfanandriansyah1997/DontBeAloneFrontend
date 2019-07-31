@@ -16,6 +16,7 @@ android {
         multiDexEnabled true
 
         buildConfigField "String", "BASE_URL", "\"http://111.92.169.32/\""
+        buildConfigField "String", "BASE_URL_CHAT", "\"http://111.92.169.32:8080/\""
 //        buildConfigField "String", "BASE_URL", "\"https://dontbealone.000webhostapp.com/\""
 //        buildConfigField "String", "BASE_URL", "\"http://192.168.11.139/\""
 //        buildConfigField "String", "BASE_URL", "\"http://10.0.3.2/\"" /* local */
@@ -65,7 +66,15 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.kirich1409.svgplugin:svg-glide4-plugin:1.1.1'
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
+    implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
+    implementation 'com.google.firebase:firebase-auth:18.1.0'
+    implementation 'com.firebaseui:firebase-ui-database:5.0.0'
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

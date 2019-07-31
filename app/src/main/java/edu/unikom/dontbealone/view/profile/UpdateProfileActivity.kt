@@ -1,4 +1,4 @@
-package edu.unikom.dontbealone.view
+package edu.unikom.dontbealone.view.profile
 
 import android.app.ProgressDialog
 import android.os.Bundle

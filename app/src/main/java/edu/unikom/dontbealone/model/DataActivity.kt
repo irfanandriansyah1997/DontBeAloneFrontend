@@ -34,4 +34,21 @@ data class DataActivity(
     var address: String,
     @SerializedName("distance")
     var distance: Double?
-)
+) {
+    constructor(name: String) : this(
+        "",
+        name,
+        DataActivityType(0, "", "http://111.92.169.32/images/fish.svg"),
+        null,
+        null,
+        mutableListOf(),
+        0,
+        "",
+        "",
+        "",
+        0.0,
+        0.0,
+        "",
+        null
+    )
+}

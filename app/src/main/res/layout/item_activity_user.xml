@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingTop="8dp"
@@ -30,6 +31,20 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_admin"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/detailUserPending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_chip"
+        android:paddingLeft="4dp"
+        android:paddingTop="2dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="2dp"
+        android:text="Request sent"
+        android:textSize="12sp"
+        android:visibility="gone"
         tools:visibility="visible" />
 
     <ImageView

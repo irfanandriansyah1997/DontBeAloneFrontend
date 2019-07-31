@@ -1,4 +1,4 @@
-package edu.unikom.dontbealone.view
+package edu.unikom.dontbealone.view.activity
 
 import android.Manifest
 import android.app.Activity
@@ -231,11 +231,18 @@ class MapsPickerActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiCli
 
     public override fun onStop() {
         super.onStop()
-        if (googleApiClient != null && googleApiClient!!.isConnected) {
+        map?.onStop()
+        if (googleApiClient != null) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this)
             if (googleApiClient!!.isConnected)
-                LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this)
-            googleApiClient!!.disconnect()
+                googleApiClient!!.disconnect()
         }
+    }
+
+    override fun onDestroy() {
+        mMap?.clear()
+        map?.onDestroy()
+        super.onDestroy()
     }
 
     override fun onConnected(bundle: Bundle?) {

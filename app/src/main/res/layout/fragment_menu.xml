@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_menu"
-    tools:context=".view.MenuDialogFragment">
+    tools:context=".view.home.MenuDialogFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -73,7 +73,6 @@
             android:background="?attr/selectableItemBackground"
             android:drawableLeft="@drawable/ic_home"
             android:drawablePadding="16dp"
-            android:drawableTint="#5f6368"
             android:fontFamily="@font/nunito_regular"
             android:paddingLeft="24dp"
             android:paddingTop="16dp"
@@ -98,7 +97,6 @@
             android:background="?attr/selectableItemBackground"
             android:drawableLeft="@drawable/ic_timeline"
             android:drawablePadding="16dp"
-            android:drawableTint="#5f6368"
             android:fontFamily="@font/nunito_regular"
             android:paddingLeft="24dp"
             android:paddingTop="16dp"
@@ -123,7 +121,6 @@
             android:background="?attr/selectableItemBackground"
             android:drawableLeft="@drawable/ic_activity"
             android:drawablePadding="16dp"
-            android:drawableTint="#5f6368"
             android:fontFamily="@font/nunito_regular"
             android:paddingLeft="24dp"
             android:paddingTop="16dp"

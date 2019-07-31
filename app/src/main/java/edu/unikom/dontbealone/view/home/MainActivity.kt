@@ -1,4 +1,4 @@
-package edu.unikom.dontbealone.view
+package edu.unikom.dontbealone.view.home
 
 import android.os.Bundle
 import android.view.View
@@ -7,6 +7,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import edu.unikom.dontbealone.R
 import edu.unikom.dontbealone.util.Helpers
+import edu.unikom.dontbealone.view.NotificationActivity
+import edu.unikom.dontbealone.view.activity.InputDialogFragment
+import edu.unikom.dontbealone.view.activity.ListActivityFragment
+import edu.unikom.dontbealone.view.activity.NearbyListActivity
+import edu.unikom.dontbealone.view.chat.MessageFragment
+import edu.unikom.dontbealone.view.profile.FriendFragment
+import edu.unikom.dontbealone.view.profile.ProfileFragment
+import edu.unikom.dontbealone.view.profile.SearchUserActivity
+import edu.unikom.dontbealone.view.profile.SearchUserDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
@@ -40,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         bNewActivity.setOnClickListener {
             if (menu.selectedMenuId == R.id.bMenuHome) {
                 startActivity<NearbyListActivity>()
-//                val input = SearchActivityDialogFragment.newInstance({
+//                val input = SearchUserDialogFragment.newInstance({
 //
 //                })
 //                input.show(
@@ -55,6 +64,14 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager,
                     "input_dialog_fragment"
                 )
+            } else if (menu.selectedMenuId == R.id.bMenuFriend) {
+                val input = SearchUserDialogFragment.newInstance("", {
+                    startActivity<SearchUserActivity>("keyword" to it)
+                })
+                input.show(
+                    supportFragmentManager,
+                    "input_dialog_fragment"
+                )
             }
         }
         goToHome()
@@ -62,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
     fun goToProfile() {
         menu.selectedMenuId = R.id.bMenuProfile
-        currentFragment = ProfileFragment()
+        currentFragment = ProfileFragment.newInstance(Helpers.getCurrentUser(this).username)
         supportFragmentManager.beginTransaction().replace(mainFrame.id, currentFragment!!).commit()
         bNewActivity.visibility = View.GONE
         bNewActivity.text = "Edit Profile"
@@ -104,7 +121,8 @@ class MainActivity : AppCompatActivity() {
 
     fun goToMyAct() {
         menu.selectedMenuId = R.id.bMenuMyAct
-        currentFragment = ListActivityFragment.newInstance(Helpers.getCurrentUser(this).username)
+        currentFragment =
+            ListActivityFragment.newInstance(null, Helpers.getCurrentUser(this).username)
         supportFragmentManager.beginTransaction().replace(mainFrame.id, currentFragment!!).commit()
         bNewActivity.visibility = View.VISIBLE
         bNewActivity.text = "Create Activity"
@@ -120,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         menu.selectedMenuId = R.id.bMenuMessage
         currentFragment = MessageFragment()
         supportFragmentManager.beginTransaction().replace(mainFrame.id, currentFragment!!).commit()
-        bNewActivity.visibility = View.VISIBLE
+        bNewActivity.visibility = View.GONE
         bNewActivity.text = "New Message"
         bNewActivity.setCompoundDrawablesWithIntrinsicBounds(
             ContextCompat.getDrawable(this, R.drawable.ic_new_message),

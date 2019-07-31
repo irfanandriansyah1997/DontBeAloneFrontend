@@ -1,4 +1,4 @@
-package edu.unikom.dontbealone.view
+package edu.unikom.dontbealone.view.activity
 
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -109,8 +109,10 @@ class InputDialogFragment : BottomSheetDialogFragment() {
                 override fun onSlide(@NonNull bottomSheet: View, slideOffset: Float) {}
             })
         }
-        bInputType.setOnClickListener { startActivityForResult<TypePickerActivity>(TypePickerActivity.TYPE_PICKER_REQUEST) }
-        bInputMap.setOnClickListener { startActivityForResult<MapsPickerActivity>(MapsPickerActivity.MAPS_PICKER_REQUEST) }
+        bInputType.setOnClickListener { startActivityForResult<TypePickerActivity>(
+            TypePickerActivity.TYPE_PICKER_REQUEST) }
+        bInputMap.setOnClickListener { startActivityForResult<MapsPickerActivity>(
+            MapsPickerActivity.MAPS_PICKER_REQUEST) }
         bInputTime.setOnClickListener { getDate() }
         inActPrice.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

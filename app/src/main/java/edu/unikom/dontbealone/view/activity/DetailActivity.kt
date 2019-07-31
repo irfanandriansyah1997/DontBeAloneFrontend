@@ -1,9 +1,10 @@
-package edu.unikom.dontbealone.view
+package edu.unikom.dontbealone.view.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -25,19 +26,25 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.gson.Gson
 import edu.unikom.dontbealone.R
 import edu.unikom.dontbealone.adapter.ListActivityUserAdapter
 import edu.unikom.dontbealone.model.DataActivity
 import edu.unikom.dontbealone.model.DataActivityUser
+import edu.unikom.dontbealone.model.DataChatRoom
 import edu.unikom.dontbealone.model.DataUser
 import edu.unikom.dontbealone.util.GlideApp
 import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
+import edu.unikom.dontbealone.view.chat.ChatActivity
+import edu.unikom.dontbealone.view.profile.ProfileActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_nearby_activity.bBottomNavBack
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.text.NumberFormat
 import java.util.*
@@ -88,6 +95,29 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
                                     }
 
                                 }).show()
+                        } else {
+                            val builder = AlertDialog.Builder(it.context)
+                            builder.setMessage("Are you sure you want to leave this activity?")
+                                .setPositiveButton("Yes", object : DialogInterface.OnClickListener {
+                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                                        leaveActivity(id, Helpers.getCurrentUser(this@DetailActivity).username, dialog)
+                                    }
+                                }).setNegativeButton("No", object : DialogInterface.OnClickListener {
+                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                                        dialog?.cancel()
+                                    }
+
+                                }).show()
+                        }
+                    } else if (item.itemId == R.id.menu_message) {
+                        if (data != null) {
+                            var chatRoom =
+                                DataChatRoom(id = "database-" + id, activity = data!!, message = null, notif = 0)
+                            startActivity(
+                                intentFor<ChatActivity>("chat_room" to Gson().toJson(chatRoom)).addFlags(
+                                    Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                                )
+                            )
                         }
                     }
                     return true
@@ -96,7 +126,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
             popup.menu.findItem(R.id.menu_edit).isVisible = userRole != null && userRole!!.level.equals("admin")
 //            popup.menu.findItem(R.id.menu_request).isVisible = userRole != null && userRole!!.level.equals("admin")
             popup.menu.findItem(R.id.menu_cancel).title =
-                if (userRole != null && userRole!!.level.equals("admin")) "Delete Activity" else "Cancel Activity"
+                if (userRole != null && userRole!!.level.equals("admin")) "Delete Activity" else "Leave Activity"
             popup.menu.findItem(R.id.menu_message).isVisible = userRole != null && userRole!!.status.equals("Accepted")
             popup.show()
         }
@@ -115,6 +145,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 }).show()
         }
         listActUserAdapter = ListActivityUserAdapter(listActiviyUser, {
+            startActivity<ProfileActivity>("user" to it.username)
         }, { s: String, i: Int ->
             val builder = AlertDialog.Builder(this)
             builder.setMessage("Are you sure you want to " + (if (i == 1) "accept" else "reject") + " " + s + " to join this activity?")
@@ -126,7 +157,6 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
                     override fun onClick(dialog: DialogInterface?, which: Int) {
                         dialog?.cancel()
                     }
-
                 }).show()
         })
         listActUser.adapter = listActUserAdapter
@@ -139,7 +169,10 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap?) {
         map = googleMap
-        map?.uiSettings?.isMapToolbarEnabled = false
+        map?.uiSettings?.isMapToolbarEnabled = true
+        val mapPaddingX = resources.getDimension(R.dimen.map_padding_x).toInt()
+        val mapPaddingY = resources.getDimension(R.dimen.map_padding_y).toInt()
+        map?.setPadding(mapPaddingX, mapPaddingY, mapPaddingX, mapPaddingY)
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -177,7 +210,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
             if (granted)
-                map?.setMyLocationEnabled(true)
+                map?.isMyLocationEnabled = true
         }
     }
 
@@ -203,6 +236,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 onError = {
                     it.printStackTrace()
                     toast("An error has occured, please contact the administrator").show()
+                    progressDialog.cancel()
                 },
                 onComplete = { }
             )
@@ -231,6 +265,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 onError = {
                     it.printStackTrace()
                     toast("An error has occured, please contact the administrator").show()
+                    progressDialog.cancel()
                 },
                 onComplete = { }
             )
@@ -243,7 +278,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
             progressDialog.setTitle("Deleting activity...")
             progressDialog.show()
             progressDialog.setCancelable(false)
-            webServices.cancelActivity(id).subscribeOn(
+            webServices.deleteActivity(id).subscribeOn(
                 Schedulers.io()
             ).observeOn(
                 AndroidSchedulers.mainThread()
@@ -259,6 +294,36 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 onError = {
                     it.printStackTrace()
                     toast("An error has occured, please contact the administrator").show()
+                    progressDialog.cancel()
+                },
+                onComplete = { }
+            )
+        }
+    }
+
+    fun leaveActivity(id: String?, username: String, dialog: DialogInterface?) {
+        if (id != null) {
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("Leaving activity...")
+            progressDialog.show()
+            progressDialog.setCancelable(false)
+            webServices.leaveActivity(id, username).subscribeOn(
+                Schedulers.io()
+            ).observeOn(
+                AndroidSchedulers.mainThread()
+            ).subscribeBy(
+                onNext = {
+                    if (it.success) {
+                        finish()
+                        dialog?.cancel()
+                    }
+                    toast(it.message)
+                    progressDialog.cancel()
+                },
+                onError = {
+                    it.printStackTrace()
+                    toast("An error has occured, please contact the administrator").show()
+                    progressDialog.cancel()
                 },
                 onComplete = { }
             )

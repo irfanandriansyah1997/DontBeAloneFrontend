@@ -64,12 +64,17 @@ interface WebServices {
     @GET("user/get_user_by_username/{username}")
     fun getUser(@Path("username") username: String): Observable<WebServiceResult<DataUser>>
 
+    @GET("user/search")
+    fun searchUser(@Query("keyword") keyword: String): Observable<WebServiceResult<List<DataUser>>>
+
     @GET("activity/get_activity")
-    fun getActivity(@Query("lat") lat: Double,
-                    @Query("lng") lng: Double,
-                    @Query("type") type: Int,
-                    @Query("distance") radius: Int,
-                    @Query("keyword") keyword: String?): Observable<WebServiceResult<List<DataActivity>>>
+    fun getActivity(
+        @Query("lat") lat: Double,
+        @Query("lng") lng: Double,
+        @Query("type") type: Int,
+        @Query("distance") radius: Int,
+        @Query("keyword") keyword: String?
+    ): Observable<WebServiceResult<List<DataActivity>>>
 
     @GET("activity/get_activity_by_user")
     fun getActivityByUser(@Query("username") username: String, @Query("limit") limit: Int): Observable<WebServiceResult<List<DataActivity>>>
@@ -114,7 +119,11 @@ interface WebServices {
     ): Observable<WebServiceResultPost>
 
     @POST("activity/banned/{id}")
-    fun cancelActivity(@Path("id") id: String): Observable<WebServiceResult<DataActivity>>
+    fun deleteActivity(@Path("id") id: String): Observable<WebServiceResult<DataActivity>>
+
+    @FormUrlEncoded
+    @POST("activity/leave_activity")
+    fun leaveActivity(@Field("id_activity") id: String, @Field("username") username: String): Observable<WebServiceResult<DataActivity>>
 
     @FormUrlEncoded
     @POST("activity/join_activity")
@@ -124,8 +133,35 @@ interface WebServices {
     @POST("activity/grant_activity")
     fun grantActivity(@Field("id_activity") id: String, @Field("username") username: String, @Field("status") status: Int): Observable<WebServiceResult<DataActivity>>
 
+    @FormUrlEncoded
+    @POST("chat")
+    fun sendChat(@Field("activity_id") id: String, @Field("username") username: String, @Field("message") message: String): Observable<WebServiceResult<DataChat>>
+
+    @GET("room")
+    fun getChatRoom(@Query("username") username: String): Observable<WebServiceResult<List<DataChatRoom>>>
+
+    @GET("friend/get_friend")
+    fun getFriend(@Query("username") username: String): Observable<WebServiceResult<List<DataFriend>>>
+
+    @FormUrlEncoded
+    @POST("friend/add_friend")
+    fun addFriend(@Field("sender") sender: String, @Field("receiver") receiver: String): Observable<WebServiceResult<DataFriend>>
+
+    @FormUrlEncoded
+    @POST("friend/confirm_friend")
+    fun confirmFriend(@Field("sender") sender: String, @Field("receiver") receiver: String): Observable<WebServiceResult<DataFriend>>
+
+    @FormUrlEncoded
+    @POST("friend/reject_friend")
+    fun rejectFriend(@Field("sender") sender: String, @Field("receiver") receiver: String): Observable<WebServiceResult<DataFriend>>
+
+    @FormUrlEncoded
+    @POST("friend/get_friend_status")
+    fun getFriendStatus(@Field("sender") sender: String, @Field("receiver") receiver: String): Observable<WebServiceResult<DataFriend>>
+
     companion object {
         lateinit var client: OkHttpClient
+        lateinit var clientChat: OkHttpClient
 
         fun create(): WebServices {
             client = OkHttpClient.Builder()
@@ -142,6 +178,25 @@ interface WebServices {
                 .baseUrl(BuildConfig.BASE_URL)
 //                .baseUrl(BuildConfig.BASE_URL + "dontbealone/") /* local */
                 .client(client)
+                .build()
+            return retrofit.create(WebServices::class.java)
+        }
+
+        fun createChat(): WebServices {
+            clientChat = OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build()
+            val gson = GsonBuilder()
+                .setLenient()
+                .create()
+            val retrofit = Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl(BuildConfig.BASE_URL_CHAT)
+//                .baseUrl(BuildConfig.BASE_URL + "dontbealone/") /* local */
+                .client(clientChat)
                 .build()
             return retrofit.create(WebServices::class.java)
         }

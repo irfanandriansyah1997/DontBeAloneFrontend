@@ -3,9 +3,11 @@ package edu.unikom.dontbealone.view
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import edu.unikom.dontbealone.R
 import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
+import edu.unikom.dontbealone.view.home.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -24,6 +26,7 @@ class RegisterActivity : AppCompatActivity() {
     private var fbId: String = ""
     private var twId: String = ""
     private var gpId: String = ""
+//    private lateinit var firebaseAuth: FirebaseAuth
 
     private val webServices by lazy {
         WebServices.create()
@@ -32,6 +35,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+//        firebaseAuth = FirebaseAuth.getInstance()
         uname =
             if (intent.extras != null && intent.extras.containsKey("uname")) intent.extras?.getString("uname")!! else ""
         name =
@@ -74,14 +78,26 @@ class RegisterActivity : AppCompatActivity() {
                     ).subscribeBy(
                         onNext = {
                             if (it.success) {
-                                Helpers.setCurrentuser(this, it.data)
-                                startActivity(intentFor<MainActivity>().newTask().clearTask())
-                                finish()
-                                toast("User Register Success").show()
+                                val user = it.data
+//                                firebaseAuth.createUserWithEmailAndPassword(
+//                                    inEmail.text.toString(),
+//                                    inPassword.text.toString()
+//                                )
+//                                    .addOnCompleteListener {
+                                        Helpers.setCurrentuser(this, user)
+                                        startActivity(intentFor<MainActivity>().newTask().clearTask())
+                                        finish()
+                                        toast("User Register Success").show()
+//                                    }
+//                                    .addOnFailureListener {
+//                                        it.printStackTrace()
+//                                        toast("An error has occured, please contact the administrator").show()
+//                                        hideLoading()
+//                                    }
                             } else {
                                 toast(it.message).show()
                             }
-                            hideLoading()
+                                hideLoading()
                         },
                         onError = {
                             it.printStackTrace()

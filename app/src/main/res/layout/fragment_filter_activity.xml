@@ -41,6 +41,41 @@
             android:maxLines="1"
             android:textSize="14sp" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/bInputType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_chip"
+                android:drawableLeft="@drawable/ic_type"
+                android:drawablePadding="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/nunito_regular"
+                android:maxLines="1"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="32dp"
+                android:paddingBottom="8dp"
+                android:text="What kind of activity do you want?"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/bInputTypeClear"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                app:srcCompat="@drawable/ic_close_circle" />
+
+        </RelativeLayout>
+
         <!--<TextView-->
         <!--android:id="@+id/bInputType"-->
         <!--android:layout_width="wrap_content"-->

@@ -25,7 +25,7 @@
         <com.cooltechworks.views.shimmer.ShimmerRecyclerView
             android:id="@+id/listAct"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:shimmer_demo_layout="@layout/item_activity_demo"
             app:shimmer_demo_layout_manager_type="linear_vertical" />
 
