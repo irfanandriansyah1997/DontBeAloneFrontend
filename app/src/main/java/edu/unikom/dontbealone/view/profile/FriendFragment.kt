@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.unikom.dontbealone.R
 import edu.unikom.dontbealone.adapter.ListFriendAdapter
 import edu.unikom.dontbealone.model.DataFriend
+import edu.unikom.dontbealone.model.DataUser
 import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
-import edu.unikom.dontbealone.view.profile.ProfileActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -24,9 +24,25 @@ import org.jetbrains.anko.support.v4.toast
 
 class FriendFragment : Fragment() {
 
+    companion object {
+        fun newInstance(title: String, includePending: Boolean, listener: (user: DataUser) -> Unit): FriendFragment {
+            val fragment = FriendFragment()
+            fragment.title = title
+            fragment.includePending = includePending
+            fragment.clickListener = listener
+            return fragment
+        }
+    }
+
+    lateinit var clickListener: (user: DataUser) -> Unit
+    private var title = "Friends"
+    private var includePending = true
     private var friends = mutableListOf<DataFriend>()
     private var friendAdapter = ListFriendAdapter(friends, {
-        startActivity<ProfileActivity>("user" to it.username)
+        if (::clickListener.isInitialized)
+            clickListener(it)
+        else
+            startActivity<ProfileActivity>("user" to it.username)
     }, { dataFriend, status ->
         if (status == 1)
             confirmFriend(dataFriend)
@@ -96,6 +112,7 @@ class FriendFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        titleListAct.text = title
         listFriend.adapter = friendAdapter
         listFriend.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL, false)
         listFriend.isNestedScrollingEnabled = false
@@ -112,7 +129,7 @@ class FriendFragment : Fragment() {
             onNext = {
                 if (it.success && it.data != null) {
                     friends.clear()
-                    friends.addAll(it.data!!)
+                    friends.addAll(if (includePending) it.data!! else it.data!!.filter { s -> s.status == 1 })
                     friendAdapter.notifyDataSetChanged()
                     tFriendNoData.visibility = if (friends.size > 0) View.GONE else View.VISIBLE
                 } else {

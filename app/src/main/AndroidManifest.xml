@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -38,9 +43,10 @@
         <activity
             android:name=".view.profile.SearchUserActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".view.activity.NearbyListActivity"/>
+        <activity android:name=".view.profile.FriendPickerActivity" />
+        <activity android:name=".view.activity.NearbyListActivity" />
         <activity android:name=".view.activity.ListActivity" />
-        <activity android:name=".view.activity.DetailActivity" />
+        <activity android:name=".view.activity.DetailActivity" android:launchMode="singleTop" />
         <activity android:name=".view.NotificationActivity" />
         <activity android:name=".view.activity.MapsPickerActivity" />
         <activity android:name=".view.activity.TypePickerActivity" />

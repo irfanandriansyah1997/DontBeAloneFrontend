@@ -8,10 +8,9 @@
     <item
         android:id="@+id/menu_cancel"
         android:title="Cancel Activity"/>
-    <!--<item-->
-        <!--android:id="@+id/menu_request"-->
-        <!--android:title="Join Request"-->
-        <!--android:visible="false"/>-->
+    <item
+        android:id="@+id/menu_invite"
+        android:title="Invite Friend"/>
     <item
         android:id="@+id/menu_message"
         android:title="Chat Room"/>

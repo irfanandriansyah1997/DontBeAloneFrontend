@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder
 import edu.unikom.dontbealone.BuildConfig
 import edu.unikom.dontbealone.model.*
 import io.reactivex.Observable
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -54,12 +55,17 @@ interface WebServices {
         @Field("name") name: String,
         @Field("phone_number") photo: String,
         @Field("address") password: String,
-        @Field("bio") bio: String
+        @Field("bio") bio: String,
+        @Field("emergency_number") emergencyNumber: String
     ): Observable<WebServiceResult<DataUser>>
 
     @FormUrlEncoded
     @POST("user/update_passsword")
     fun updateUser(@Field("username") username: String, @Field("password") password: String): Observable<WebServiceResult<DataUser>>
+
+    @Multipart
+    @POST("user/update_photo")
+    fun updateUserPhoto(@Part photo: MultipartBody.Part, @Part username: MultipartBody.Part): Observable<WebServiceResult<DataUser>>
 
     @GET("user/get_user_by_username/{username}")
     fun getUser(@Path("username") username: String): Observable<WebServiceResult<DataUser>>
@@ -101,6 +107,7 @@ interface WebServices {
         @Field("lat") lat: Double,
         @Field("lng") lng: Double,
         @Field("address") address: String,
+        @Field("datetime") datetime: String,
         @Field("username") username: String
     ): Observable<WebServiceResultPost>
 
@@ -115,6 +122,7 @@ interface WebServices {
         @Field("lat") lat: Double,
         @Field("lng") lng: Double,
         @Field("address") address: String,
+        @Field("datetime") datetime: String,
         @Field("username") username: String
     ): Observable<WebServiceResultPost>
 
@@ -124,6 +132,10 @@ interface WebServices {
     @FormUrlEncoded
     @POST("activity/leave_activity")
     fun leaveActivity(@Field("id_activity") id: String, @Field("username") username: String): Observable<WebServiceResult<DataActivity>>
+
+    @FormUrlEncoded
+    @POST("activity/invite_activity")
+    fun inviteActivity(@Field("id_activity") id: String, @Field("username") username: String): Observable<WebServiceResult<DataActivity>>
 
     @FormUrlEncoded
     @POST("activity/join_activity")

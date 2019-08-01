@@ -2,6 +2,7 @@ package edu.unikom.dontbealone.view.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -37,6 +38,7 @@ import edu.unikom.dontbealone.util.GlideApp
 import edu.unikom.dontbealone.util.Helpers
 import edu.unikom.dontbealone.util.WebServices
 import edu.unikom.dontbealone.view.chat.ChatActivity
+import edu.unikom.dontbealone.view.profile.FriendPickerActivity
 import edu.unikom.dontbealone.view.profile.ProfileActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
@@ -45,6 +47,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_nearby_activity.bBottomNavBack
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import java.text.NumberFormat
 import java.util.*
@@ -119,15 +122,23 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
                                 )
                             )
                         }
+                    } else if (item.itemId == R.id.menu_invite) {
+                        if (data != null) {
+                            startActivityForResult<FriendPickerActivity>(1)
+                        }
                     }
                     return true
                 }
             })
-            popup.menu.findItem(R.id.menu_edit).isVisible = userRole != null && userRole!!.level.equals("admin")
+            popup.menu.findItem(R.id.menu_edit).isVisible =
+                data?.finished == 0 && userRole != null && userRole!!.level.equals("admin")
+            popup.menu.findItem(R.id.menu_invite).isVisible =
+                data?.finished == 0 && userRole != null && userRole!!.level.equals("admin")
 //            popup.menu.findItem(R.id.menu_request).isVisible = userRole != null && userRole!!.level.equals("admin")
             popup.menu.findItem(R.id.menu_cancel).title =
                 if (userRole != null && userRole!!.level.equals("admin")) "Delete Activity" else "Leave Activity"
-            popup.menu.findItem(R.id.menu_message).isVisible = userRole != null && userRole!!.status.equals("Accepted")
+            popup.menu.findItem(R.id.menu_message).isVisible =
+                data?.finished == 0 && userRole != null && userRole!!.status.equals("Accepted")
             popup.show()
         }
         bJoinActiviy.setOnClickListener {
@@ -330,6 +341,34 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    fun inviteActivity(id: String?, username: String) {
+        if (id != null) {
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("Inviting user...")
+            progressDialog.show()
+            progressDialog.setCancelable(false)
+            webServices.inviteActivity(id, username).subscribeOn(
+                Schedulers.io()
+            ).observeOn(
+                AndroidSchedulers.mainThread()
+            ).subscribeBy(
+                onNext = {
+                    if (it.success) {
+                        loadDetail(id)
+                    }
+                    toast(it.message)
+                    progressDialog.cancel()
+                },
+                onError = {
+                    it.printStackTrace()
+                    toast("An error has occured, please contact the administrator").show()
+                    progressDialog.cancel()
+                },
+                onComplete = { }
+            )
+        }
+    }
+
     fun loadUserRole(id: String?) {
         if (id != null) {
             webServices.getUserRoleActivity(id, Helpers.getCurrentUser(this).username).subscribeOn(
@@ -422,6 +461,14 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
             ), null, null, null
         )
         bBottomNavMenu.visibility = if (data != null) View.VISIBLE else View.GONE
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
+            var user = Gson().fromJson(data.getStringExtra("user"), DataUser::class.java)
+            inviteActivity(this.data?.id, user.username)
+        }
     }
 
 }

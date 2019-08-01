@@ -96,7 +96,7 @@ class MapsPickerActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiCli
             finish()
         }
         bPilihMap.setOnClickListener {
-            if (latitude != 0.0 && longitude != 0.0) {
+            if (place != null && latitude != 0.0 && longitude != 0.0) {
                 val returnIntent = Intent()
                 returnIntent.putExtra(LAT_KEY, place?.latLng?.latitude)
                 returnIntent.putExtra(LNG_KEY, place?.latLng?.longitude)
@@ -210,7 +210,7 @@ class MapsPickerActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiCli
             //            binding.tAlamat.setText(alamat);
         }
         mMap!!.setOnPoiClickListener {
-            mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(it.latLng, 16f))
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(it.latLng, 16f))
             placesClient.fetchPlace(
                 FetchPlaceRequest.builder(
                     it.placeId,

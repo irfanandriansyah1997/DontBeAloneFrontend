@@ -33,7 +33,9 @@ data class DataActivity(
     @SerializedName("address")
     var address: String,
     @SerializedName("distance")
-    var distance: Double?
+    var distance: Double?,
+    @SerializedName("is_finished")
+    var finished: Int
 ) {
     constructor(name: String) : this(
         "",
@@ -49,6 +51,7 @@ data class DataActivity(
         0.0,
         0.0,
         "",
-        null
+        null,
+        0
     )
 }

@@ -56,6 +56,40 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgProfile"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_launcher" />
+
+                    <ProgressBar
+                        android:id="@+id/imgProfileLoading"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bg_image_replace"
+                        android:clickable="true"
+                        android:padding="24dp"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/nunito_regular"
+                    android:gravity="center"
+                    android:text="Tap to change your profile picture"
+                    android:textSize="12sp" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -162,7 +196,7 @@
                         android:drawableTint="@color/colorPrimary"
                         android:enabled="false"
                         android:fontFamily="@font/nunito_regular"
-                        android:inputType="phone|textNoSuggestions"
+                        android:inputType="textWebEmailAddress|textNoSuggestions"
                         android:maxLines="1"
                         android:textSize="14sp" />
 
@@ -186,14 +220,60 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/nunito_regular"
+                    android:text="Emergency Contact Information"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Emergency number"
-                    android:visibility="gone">
+                    android:hint="Your emergency phone number *">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inEmergencyPhone"
+                        android:id="@+id/inEmergencyPhone1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_phone"
+                        android:drawableTint="@color/colorPrimary"
+                        android:fontFamily="@font/nunito_regular"
+                        android:inputType="phone|textNoSuggestions"
+                        android:maxLines="1"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Your emergency phone number (2)">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inEmergencyPhone2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_phone"
+                        android:drawableTint="@color/colorPrimary"
+                        android:fontFamily="@font/nunito_regular"
+                        android:inputType="phone|textNoSuggestions"
+                        android:maxLines="1"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Your emergency phone number (3)">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inEmergencyPhone3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/ic_phone"

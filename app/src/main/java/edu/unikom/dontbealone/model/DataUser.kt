@@ -23,7 +23,9 @@ data class DataUser(
     @SerializedName("level_user")
     var level: String? = "",
     @SerializedName("status")
-    var status: String? = ""
+    var status: String? = "",
+    @SerializedName("emergency_number")
+    var emergencyNumber: String? = ""
 ) {
-    constructor(username: String, name: String) : this(username, "", "", name, "", "", "", "", "")
+    constructor(username: String, name: String) : this(username, "", "", name, "", "", "", "", "", "")
 }

@@ -146,6 +146,7 @@ class InputDialogFragment : BottomSheetDialogFragment() {
                         lat,
                         lng,
                         address,
+                        time,
                         Helpers.getCurrentUser(it.context).username
                     ) else
                     webServices.updateActivity(
@@ -157,6 +158,7 @@ class InputDialogFragment : BottomSheetDialogFragment() {
                         lat,
                         lng,
                         address,
+                        time,
                         Helpers.getCurrentUser(it.context).username
                     )
                 call.subscribeOn(
@@ -248,6 +250,7 @@ class InputDialogFragment : BottomSheetDialogFragment() {
                 getTime(SimpleDateFormat("yyyy-MM-dd").format(cc.time))
             }, year, month, day
         )
+        dialog.datePicker.minDate = Date().time
         dialog.setCancelable(false)
         dialog.show()
     }

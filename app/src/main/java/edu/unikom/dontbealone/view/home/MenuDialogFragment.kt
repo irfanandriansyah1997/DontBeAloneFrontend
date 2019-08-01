@@ -63,7 +63,7 @@ class MenuDialogFragment : BottomSheetDialogFragment() {
         val user = Helpers.getCurrentUser(view.context)
         txtMenuName.text = if (!user.name.equals("")) user.name else user.username
         txtMenuEmail.text = user.email
-        Glide.with(this).load(user.photo).placeholder(R.drawable.bg_img_default).into(imgMenuProfile)
+        Glide.with(view).load(user.photo).error(R.drawable.ic_user).into(imgMenuProfile)
         bMenuProfile.setOnClickListener { menuClick(it) }
         bMenuHome.setOnClickListener { menuClick(it) }
         bMenuFriend.setOnClickListener { menuClick(it) }
